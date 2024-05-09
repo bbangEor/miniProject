@@ -13,7 +13,7 @@ public class PlayerBackgroundService implements Runnable {
 		this.player = player;
 	}
 
-	image = imageIO.read(new File("img/background.png"));
+//	image=imageIO.read(new File("img/background.png"));
 
 	@Override
 		public void run() {
@@ -21,12 +21,12 @@ public class PlayerBackgroundService implements Runnable {
 				int bottomColorLeft = image.getRGB(player.getX(), player.getY());
 				int bottomColorRight = image.getRGB(player.getX(), player.getY());
 			
-			if(bottomColorLeft + bottomColorRight != -2) {
-				player.setDown(false)
-			} else {
-				if(!player.isup() && !player.isDown()) {
-					player.down();
-				}
+//			if(bottomColorLeft + bottomColorRight != -2) {
+//				player.setDown(false)
+//			} else {
+//				if(!player.isup() && !player.isDown()) {
+//					player.down();
+//				}
 			
 				try {
 					Thread.sleep(10);
@@ -39,4 +39,4 @@ public class PlayerBackgroundService implements Runnable {
 		}
 	}
 
-}
+//}

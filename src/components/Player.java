@@ -1,9 +1,13 @@
 package components;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
+import test.MainTest;
 
-public class Player {
+public class Player extends JLabel {
+
+	MainTest mContext;
 
 	private int x;
 	private int y;
@@ -14,8 +18,8 @@ public class Player {
 	// 플레이어 속도 상태
 	private final int JUMPSPEED = 2;
 
-	public Player() {
-
+	public Player(MainTest mContext) {
+		this.mContext = mContext;
 		initData();
 		setInitLayout();
 
@@ -60,15 +64,17 @@ public class Player {
 	private void initData() {
 		player = new ImageIcon("img/Player.png");
 
-		x = 450;
-		y = 535;
+		x = 280;
+		y = 140;
 
 		up = false;
 
+		setIcon(player);
+		setSize(120, 117);
+		setLocation(x, y);
 	}
 
 	private void setInitLayout() {
-
 	}
 
 	public void up() {
