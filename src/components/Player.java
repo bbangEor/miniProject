@@ -23,7 +23,6 @@ public class Player extends JLabel {
 		initData();
 		setInitLayout();
 
-	
 	}
 
 	public int getX() {
@@ -73,8 +72,8 @@ public class Player extends JLabel {
 	private void initData() {
 		player = new ImageIcon("img/Player.png");
 
-		x = 250;
-		y = 485;
+		x = 70;
+		y = 167;
 
 		up = false;
 		down = false;

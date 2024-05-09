@@ -3,6 +3,7 @@ package test;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -10,9 +11,9 @@ import components.Player;
 import components.Score;
 
 public class MainTest extends JFrame {
-	
+
 	MainTest mContext = this;
-	
+
 	private Player player;
 	private Score score;
 	private JLabel backgroundMap;
@@ -24,18 +25,19 @@ public class MainTest extends JFrame {
 	}
 
 	public void initData() {
-		backgroundMap = new JLabel(new ImageIcon("img.jpg"));
-		player = new Player(player);
 		backgroundMap = new JLabel(new ImageIcon("img/Background.jpg"));
-		player = new Player(player);
+		
 		setContentPane(backgroundMap);
-		setSize(1000,1000);
+		setResizable(false);
+		setSize(587, 360);
+		setLocationRelativeTo(null);
+		player = new Player(player);
 	}
 
 	public void setInitLayout() {
 		setLayout(null);
 		setVisible(true);
-		
+
 		add(player);
 
 	}
