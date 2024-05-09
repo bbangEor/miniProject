@@ -3,7 +3,6 @@ package test;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -25,9 +24,10 @@ public class MainTest extends JFrame {
 	}
 
 	public void initData() {
+		backgroundMap = new JLabel(new ImageIcon("img.jpg"));
+		player = new Player(player);
 		backgroundMap = new JLabel(new ImageIcon("img/Background.jpg"));
 		player = new Player(player);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(backgroundMap);
 		setSize(1000,1000);
 	}
