@@ -7,11 +7,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class MainTest extends JFrame {
-	MainTest mContext = this;
-	private JLabel backgroundMap;
+import components.Player;
+import components.Score;
 
-	private components.Player player;
+public class MainTest extends JFrame {
+
+	MainTest mContext = this;
+
+	private Player player;
+	private Score score;
+	private JLabel backgroundMap;
 
 	public MainTest() {
 		initData();
@@ -20,14 +25,12 @@ public class MainTest extends JFrame {
 
 	}
 
-	private void initData() {
-		backgroundMap = new JLabel(new ImageIcon("img/Background.jpg"));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	public void initData() {
+		backgroundMap = new JLabel(new ImageIcon("img/Background1.jpg"));
+		player = new Player(player);
 		setContentPane(backgroundMap);
-		setSize(587, 360);
-
-		player = new components.Player(mContext);
-
+		setSize(815, 500);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	private void setInitLayout() {
@@ -36,6 +39,7 @@ public class MainTest extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
+
 		add(player);
 
 	}
@@ -45,26 +49,26 @@ public class MainTest extends JFrame {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				switch(e.getKeyCode()) {
+				switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE:
 					player.up();
 					break;
 				default:
-					break;	
+					break;
 				}
 			}
 
-			@Override
-			public void keyReleased(KeyEvent e) {
-				
-				switch(e.getKeyCode()) {
-				case KeyEvent.VK_SPACE:
-//					player.~~~;
-					break;
-				default:
-					break;
-				} 
-			}
+//			@Override
+//			public void keyReleased(KeyEvent e) {
+//
+//				switch (e.getKeyCode()) {
+//				case KeyEvent.VK_SPACE:
+////					player.down();
+//					break;
+//				default:
+//					break;
+//				}
+//			}
 
 		});
 	}
