@@ -1,42 +1,29 @@
 package components;
 
 import javax.swing.ImageIcon;
-<<<<<<< HEAD
 
-
-public class Player {
-
-=======
 import javax.swing.JLabel;
 
 public class Player extends JLabel {
 
 	Player mContext;
 
->>>>>>> bb9a01dc0bd80fcd612cd899c3f00ca8f99671f6
 	private int x;
 	private int y;
 	private ImageIcon player;
 	// 움직임 상태
 	private boolean up;
-<<<<<<< HEAD
-=======
 	private boolean down;
->>>>>>> bb9a01dc0bd80fcd612cd899c3f00ca8f99671f6
 
 	// 플레이어 속도 상태
 	private final int JUMPSPEED = 2;
 
-<<<<<<< HEAD
-	public Player() {
-
-=======
 	public Player(Player mContext) {
 		this.mContext = mContext;
->>>>>>> bb9a01dc0bd80fcd612cd899c3f00ca8f99671f6
 		initData();
 		setInitLayout();
 
+	
 	}
 
 	public int getX() {
@@ -75,8 +62,6 @@ public class Player extends JLabel {
 		return JUMPSPEED;
 	}
 
-<<<<<<< HEAD
-=======
 	public boolean isDown() {
 		return down;
 	}
@@ -85,29 +70,22 @@ public class Player extends JLabel {
 		this.down = down;
 	}
 
->>>>>>> bb9a01dc0bd80fcd612cd899c3f00ca8f99671f6
 	private void initData() {
 		player = new ImageIcon("img/Player.png");
 
-		x = 450;
-		y = 535;
+		x = 250;
+		y = 485;
 
 		up = false;
-<<<<<<< HEAD
-=======
 		down = false;
->>>>>>> bb9a01dc0bd80fcd612cd899c3f00ca8f99671f6
 
 	}
 
 	private void setInitLayout() {
-<<<<<<< HEAD
 
-=======
 		setIcon(player);
-		setSize(50, 50);
+		setSize(100, 100);
 		setLocation(x, y);
->>>>>>> bb9a01dc0bd80fcd612cd899c3f00ca8f99671f6
 	}
 
 	public void up() {
@@ -118,10 +96,7 @@ public class Player extends JLabel {
 			public void run() {
 				for (int i = 0; i < 130 / JUMPSPEED; i++) {
 					y = y - JUMPSPEED;
-<<<<<<< HEAD
-=======
 					setLocation(x, y);
->>>>>>> bb9a01dc0bd80fcd612cd899c3f00ca8f99671f6
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
@@ -137,8 +112,6 @@ public class Player extends JLabel {
 		}).start();
 
 	}
-<<<<<<< HEAD
-=======
 
 	public void down() {
 		System.out.println("다운");
@@ -158,5 +131,4 @@ public class Player extends JLabel {
 			}
 		}).start();
 	}
->>>>>>> bb9a01dc0bd80fcd612cd899c3f00ca8f99671f6
 }
