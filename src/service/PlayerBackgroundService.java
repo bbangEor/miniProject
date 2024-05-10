@@ -1,5 +1,6 @@
 package service;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +16,8 @@ public class PlayerBackgroundService implements Runnable {
 
 	public PlayerBackgroundService(Player player) {
 		this.player = player;
-
 		try {
-			image = ImageIO.read(new File("img/background.jpg"));
+			image = ImageIO.read(new File("img/backService.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -25,21 +25,18 @@ public class PlayerBackgroundService implements Runnable {
 
 	// 부딪혔을 때 하트 - 1
 	// 하트 아이템 먹었을 때 하트 + 1
-	
+
 	// 게임 스타트, 게임 오버 이미지 구하기
-	
+
 	// 이미지 넘어가는 것처럼 무한루프(이어붙이기)
-	
-	
-	
+
 	@Override
 	public void run() {
 		while (true) {
-			int bottomColorLeft = image.getRGB(player.getX(), player.getY());
-			int bottomColorRight = image.getRGB(player.getX(), player.getY());
-
-			if (bottomColorLeft + bottomColorRight != -2) {
+			Color bottomColor = new Color(image.getRGB(player.getX(), player.getY()));
+			if (bottomColor.getRed() == 255 && bottomColor.getGreen() == 0 && bottomColor.getBlue() == 0) {
 				player.setDown(false);
+				System.out.println("땅");
 			} else {
 				if (!player.isUp() && !player.isDown()) {
 					player.down();
@@ -55,5 +52,6 @@ public class PlayerBackgroundService implements Runnable {
 
 		}
 	}
-
 }
+
+

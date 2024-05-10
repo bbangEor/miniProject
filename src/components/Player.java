@@ -1,8 +1,9 @@
 package components;
 
 import javax.swing.ImageIcon;
-
 import javax.swing.JLabel;
+
+import service.PlayerBackgroundService;
 
 public class Player extends JLabel {
 
@@ -22,6 +23,7 @@ public class Player extends JLabel {
 		this.mContext = mContext;
 		initData();
 		setInitLayout();
+		new Thread(new PlayerBackgroundService(this)).start();
 
 	}
 
@@ -72,12 +74,14 @@ public class Player extends JLabel {
 	private void initData() {
 		player = new ImageIcon("img/Player.png");
 
-		x = 70;
-		y = 167;
+		x = 100;
+		y = 260;
+		
 
 		up = false;
 		down = false;
 
+	
 	}
 
 	private void setInitLayout() {
@@ -105,7 +109,7 @@ public class Player extends JLabel {
 
 				// 객체의 상태값을 잘 조절해야 한다.
 				up = false;
-
+				down();
 			}
 
 		}).start();
@@ -119,6 +123,7 @@ public class Player extends JLabel {
 			@Override
 			public void run() {
 				while (down) {
+					y = y + JUMPSPEED;
 					setLocation(x, y);
 					try {
 						Thread.sleep(3);
@@ -127,6 +132,7 @@ public class Player extends JLabel {
 					}
 				}
 				down = false;
+				System.out.println("멈춤준비");
 			}
 		}).start();
 	}

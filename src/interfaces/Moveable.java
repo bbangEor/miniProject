@@ -2,6 +2,9 @@ package interfaces;
 
 public interface Moveable {
 
-	public abstract void left();
+	void up();
+	void down();
+	void left();
+
 	
 }
