@@ -8,12 +8,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class BombBackgroundService implements Runnable {
-
+	
 	private BufferedImage image;
-	// private Object object;
-
-	public BombBackgroundService(Object object) {
-		//this.object = object;
+	private components.Bomb bomb;
+	
+	public BombBackgroundService(components.Bomb bomb) {
+		this.bomb = bomb;
 		try {
 			image = ImageIO.read(new File("img/Background.jpg"));
 		} catch (IOException e) {
@@ -24,12 +24,12 @@ public class BombBackgroundService implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-//			Color leftColor = new Color(image.getRGB(object.getX() + 10, object.getY() + 25));
-//
-//			int playerLeftColor = image.getRGB(object.getX() + 10, object.getY() + 25);
+			Color leftColor = new Color(image.getRGB(bomb.getX() + 10, bomb.getY() + 25));
+			
+			int playerLeftColor = image.getRGB(bomb.getX() + 10, bomb.getY() + 25);
 
 		}
-		
 	}
 
 }
+

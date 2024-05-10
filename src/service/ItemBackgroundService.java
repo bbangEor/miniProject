@@ -9,11 +9,11 @@ import javax.imageio.ImageIO;
 
 import components.Item;
 
-public class ItemBackgroundService {
-
+public class ItemBackgroundService{
+	
 	private BufferedImage image;
 	private Item item;
-
+	
 	public ItemBackgroundService(Item item) {
 		this.item = item;
 		try {
@@ -22,7 +22,7 @@ public class ItemBackgroundService {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public boolean leftPlayer() {
 		Color leftColor = new Color(image.getRGB(item.getX() + 10, item.getY() + 25));
 		if (leftColor.getRed() == 255 && leftColor.getGreen() == 0 && leftColor.getBlue() == 0) {
@@ -30,5 +30,6 @@ public class ItemBackgroundService {
 		}
 		return false;
 	}
+
 
 }

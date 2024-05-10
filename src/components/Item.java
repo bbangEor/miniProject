@@ -8,9 +8,9 @@ import state.BombWay;
 import test.MiniGameFrame;
 
 public class Item extends JLabel implements ItemMoveable {
-
+	
 	MiniGameFrame mContext;
-
+	
 	private int state = 0;
 
 	private int x;
@@ -19,7 +19,7 @@ public class Item extends JLabel implements ItemMoveable {
 	private final int SPEED = 3;
 
 	private boolean left;
-	private BombWay objectWay;
+	private BombWay bombWay;
 
 	public Item(MiniGameFrame mContext) {
 		this.mContext = mContext;
@@ -31,7 +31,7 @@ public class Item extends JLabel implements ItemMoveable {
 	public void initData() {
 		item = new ImageIcon("img/도토리.png");
 		x = 1000;
-		y = 535;
+		y = 310;
 
 	}
 
@@ -40,7 +40,7 @@ public class Item extends JLabel implements ItemMoveable {
 		setSize(50, 50);
 		setLocation(x, y);
 	}
-
+	
 	public void crash() {
 		mContext.getItem().setState(1);
 		setIcon(null);
@@ -50,7 +50,7 @@ public class Item extends JLabel implements ItemMoveable {
 
 	@Override
 	public void left() {
-		objectWay = BombWay.LEFT;
+		bombWay = BombWay.LEFT;
 		left = true;
 		new Thread(new Runnable() {
 
@@ -111,16 +111,18 @@ public class Item extends JLabel implements ItemMoveable {
 		this.left = left;
 	}
 
-	public BombWay getObjectWay() {
-		return objectWay;
+	public BombWay getBombWay() {
+		return bombWay;
 	}
 
-	public void setObjectWay(BombWay objectWay) {
-		this.objectWay = objectWay;
+	public void setBombWay(BombWay bombWay) {
+		this.bombWay = bombWay;
 	}
 
 	public int getSPEED() {
 		return SPEED;
 	}
+	
+
 
 }
