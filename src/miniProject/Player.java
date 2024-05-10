@@ -1,9 +1,7 @@
-package components;
+package miniProject;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-
-import service.PlayerBackgroundService;
 
 public class Player extends JLabel {
 
@@ -73,23 +71,20 @@ public class Player extends JLabel {
 
 	private void initData() {
 		player = new ImageIcon("img/Player.png");
-		
+
 		x = 100;
-		y = 260;
+		y = 0;
 
 		up = false;
 		down = false;
 
 		setIcon(player);
-		setSize(70, 70);
+		setSize(100, 100);
 		setLocation(x, y);
 	}
 
 	private void setInitLayout() {
 
-		setIcon(player);
-		setSize(100, 100);
-		setLocation(x, y);
 	}
 
 	public void up() {

@@ -1,6 +1,5 @@
-package state;
+package miniProject;
 
 public enum ObjectWay {
-
-	LEFT;
+	LEFT
 }
