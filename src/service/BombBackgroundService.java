@@ -7,12 +7,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class ObjectBackgroundService implements Runnable {
+public class BombBackgroundService implements Runnable {
 
 	private BufferedImage image;
 	// private Object object;
 
-	public ObjectBackgroundService(Object object) {
+	public BombBackgroundService(Object object) {
 		//this.object = object;
 		try {
 			image = ImageIO.read(new File("img/Background.jpg"));

@@ -2,22 +2,27 @@ package test;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import java.util.ArrayList;
 import java.util.Random;
+import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import components.Bomb;
 import components.Item;
 import components.Player;
 
-public class MainTest extends JFrame {
+import components.Score;
 
-	MainTest mContext = this;
+public class MiniGameFrame extends JFrame {
+
+	MiniGameFrame mContext = this;
 
 	private JLabel backgroundMap;
-	private Object object;
+	private Bomb object;
 	private Item item;
 	private Player player;
 
@@ -25,9 +30,7 @@ public class MainTest extends JFrame {
 		return object;
 	}
 
-	public void setObject(Object object) {
-		this.object = object;
-	}
+
 
 	public Item getItem() {
 		return item;
@@ -37,60 +40,25 @@ public class MainTest extends JFrame {
 		this.item = item;
 	}
 
-	public MainTest getmContext() {
-		return mContext;
-	}
-
-	public void setmContext(MainTest mContext) {
-		this.mContext = mContext;
-	}
-
-	public JLabel getBackgroundMap() {
-		return backgroundMap;
-	}
-
-	public void setBackgroundMap(JLabel backgroundMap) {
-		this.backgroundMap = backgroundMap;
-	}
-
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
-	public ArrayList<Object> getObjectlist() {
-		return objectlist;
-	}
-
-	public void setObjectlist(ArrayList<Object> objectlist) {
-		this.objectlist = objectlist;
-	}
-
-	ArrayList<Object> objectlist = new ArrayList<>();
-
-	public MainTest() {
+	public MiniGameFrame() {
 		initData();
 		setInitLayout();
-
+		addEventListener();
 	}
 
 	public void initData() {
-		backgroundMap = new JLabel(new ImageIcon("img/Background.jpg"));
+		backgroundMap = new JLabel(new ImageIcon("img/Background1.jpg"));
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 640);
-		object = new Object();
+		setSize(815, 500);
+		object = new Bomb(mContext);
 		item = new Item(mContext);
 		player = new Player(player);
-		addEventListener();
 	}
 
 	public void setInitLayout() {
 		setLayout(null);
-		setResizable(false);
+		// setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		add(player);
@@ -101,14 +69,20 @@ public class MainTest extends JFrame {
 				while (true) {
 					int a = (new Random()).nextInt(10);
 					if (a < 7) {
-						add(new Item(mContext));
-						repaint();
+						int b = (new Random()).nextInt(10);
+						if (b < 5) {
+							add(new Item(mContext));
+							repaint();
+						}
 					} else {
-						add(new Object());
-						repaint();
+						int b = (new Random()).nextInt(10);
+						if (b < 5) {
+							add(new Bomb(mContext));
+							repaint();
+						}
 					}
 					try {
-						Thread.sleep(400);
+						Thread.sleep(500);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -133,21 +107,13 @@ public class MainTest extends JFrame {
 //		}).start();
 	}
 
-	protected void add(Object object2) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void addEventListener() {
 		this.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
-				case KeyEvent.VK_UP:
+				case KeyEvent.VK_SPACE:
 					player.up();
-					break;
-				case KeyEvent.VK_DOWN:
-					player.down();
 					break;
 				default:
 					break;
@@ -155,9 +121,10 @@ public class MainTest extends JFrame {
 			}
 		});
 	}
-
+	
+	// 여기는 한사람만 건드려 
 	public static void main(String[] args) {
-		new MainTest();
+		new MiniGameFrame();
 	}
 
 }

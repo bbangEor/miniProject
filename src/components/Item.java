@@ -4,12 +4,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import interfaces.ItemMoveable;
-import state.ObjectWay;
-import test.MainTest;
+import state.BombWay;
+import test.MiniGameFrame;
 
 public class Item extends JLabel implements ItemMoveable {
 
-	MainTest mContext;
+	MiniGameFrame mContext;
 
 	private int state = 0;
 
@@ -19,9 +19,9 @@ public class Item extends JLabel implements ItemMoveable {
 	private final int SPEED = 3;
 
 	private boolean left;
-	private ObjectWay objectWay;
+	private BombWay objectWay;
 
-	public Item(MainTest mContext) {
+	public Item(MiniGameFrame mContext) {
 		this.mContext = mContext;
 		initData();
 		setInitLayout();
@@ -50,7 +50,7 @@ public class Item extends JLabel implements ItemMoveable {
 
 	@Override
 	public void left() {
-		objectWay = ObjectWay.LEFT;
+		objectWay = BombWay.LEFT;
 		left = true;
 		new Thread(new Runnable() {
 
@@ -111,11 +111,11 @@ public class Item extends JLabel implements ItemMoveable {
 		this.left = left;
 	}
 
-	public ObjectWay getObjectWay() {
+	public BombWay getObjectWay() {
 		return objectWay;
 	}
 
-	public void setObjectWay(ObjectWay objectWay) {
+	public void setObjectWay(BombWay objectWay) {
 		this.objectWay = objectWay;
 	}
 
