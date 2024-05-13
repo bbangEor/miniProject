@@ -8,9 +8,9 @@ import state.BombWay;
 import test.MiniGameFrame;
 
 public class Item extends JLabel implements ItemMoveable {
-
+	
 	MiniGameFrame mContext;
-
+	
 	private int state = 0;
 	private int score = 0;
 
@@ -40,6 +40,12 @@ public class Item extends JLabel implements ItemMoveable {
 		setIcon(item);
 		setSize(50, 50);
 		setLocation(x, y);
+	}
+	public void crash() {
+		mContext.getItem().setState(1);
+		setIcon(null);
+		mContext.remove(mContext.getItem());
+		mContext.repaint();
 	}
 
 	@Override
@@ -72,12 +78,7 @@ public class Item extends JLabel implements ItemMoveable {
 
 	}
 
-	public void crash() {
-		mContext.getItem().setState(1);
-		setIcon(null);
-		mContext.remove(mContext.getItem());
-		mContext.repaint();
-	}
+	
 
 	public int getState() {
 		return state;
@@ -130,5 +131,7 @@ public class Item extends JLabel implements ItemMoveable {
 	public int getSPEED() {
 		return SPEED;
 	}
+	
+
 
 }
