@@ -12,6 +12,7 @@ public class Item extends JLabel implements ItemMoveable {
 	MiniGameFrame mContext;
 
 	private int state = 0;
+	private int score = 0;
 
 	private int x;
 	private int y;
@@ -19,19 +20,19 @@ public class Item extends JLabel implements ItemMoveable {
 	private final int SPEED = 3;
 
 	private boolean left;
-	private BombWay objectWay;
+	private BombWay bombWay;
 
-	public Item(MiniGameFrame mContext) {
-		this.mContext = mContext;
+	public Item(MiniGameFrame mContext2) {
+		this.mContext = mContext2;
 		initData();
 		setInitLayout();
 		left();
 	}
 
 	public void initData() {
-		item = new ImageIcon("img/도토리.png");
+		item = new ImageIcon("img/dotori.png");
 		x = 1000;
-		y = 535;
+		y = 310;
 
 	}
 
@@ -41,16 +42,9 @@ public class Item extends JLabel implements ItemMoveable {
 		setLocation(x, y);
 	}
 
-	public void crash() {
-		mContext.getItem().setState(1);
-		setIcon(null);
-		mContext.remove(mContext.getItem());
-		mContext.repaint();
-	}
-
 	@Override
 	public void left() {
-		objectWay = BombWay.LEFT;
+		bombWay = BombWay.LEFT;
 		left = true;
 		new Thread(new Runnable() {
 
@@ -64,11 +58,25 @@ public class Item extends JLabel implements ItemMoveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					int absX = Math.abs(x - mContext.getPlayer().getX() - 55);
+					int absY = Math.abs(y - mContext.getPlayer().getY());
+					if (absX < 25 && absY < 50) {
+						if (state == 0) {
+							crash();
+						}
+					}
 				}
 
 			}
 		}).start();
 
+	}
+
+	public void crash() {
+		mContext.getItem().setState(1);
+		setIcon(null);
+		mContext.remove(mContext.getItem());
+		mContext.repaint();
 	}
 
 	public int getState() {
@@ -111,12 +119,12 @@ public class Item extends JLabel implements ItemMoveable {
 		this.left = left;
 	}
 
-	public BombWay getObjectWay() {
-		return objectWay;
+	public BombWay getBombWay() {
+		return bombWay;
 	}
 
-	public void setObjectWay(BombWay objectWay) {
-		this.objectWay = objectWay;
+	public void setBombWay(BombWay bombWay) {
+		this.bombWay = bombWay;
 	}
 
 	public int getSPEED() {

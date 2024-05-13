@@ -1,5 +1,6 @@
 package test;
 
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
@@ -20,6 +21,11 @@ public class MiniGameFrame extends JFrame {
 	private Bomb bomb;
 	private Item item;
 	private Player player;
+	private JLabel comments;
+	private JLabel comments2;
+	private int score;
+	boolean flag;
+	private ImageIcon img1;
 
 	public MiniGameFrame() {
 		initData();
@@ -43,6 +49,14 @@ public class MiniGameFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		add(player);
+		img1=new ImageIcon("img/heart.png");
+		comments = new JLabel(Integer.toString(score));
+		comments2 = new JLabel(img1);
+		comments.setFont(new Font("둥근모체", Font.BOLD, 20));
+		comments.setBounds(720, 0, 150, 100);
+		comments2.setBounds(20, 0, 150, 100);
+		add(comments);
+		add(comments2);
 		new Thread(new Runnable() {
 
 			@Override
@@ -53,13 +67,13 @@ public class MiniGameFrame extends JFrame {
 						int b = (new Random()).nextInt(10);
 						if (b < 5) {
 							add(new Item(mContext));
-							repaint();
+							repaint();													
 						}
 					} else {
 						int b = (new Random()).nextInt(10);
 						if (b < 5) {
 							add(new Bomb(mContext));
-							repaint();
+							repaint();							
 						}
 					}
 					try {
@@ -119,7 +133,11 @@ public class MiniGameFrame extends JFrame {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-
+	
+	public int scoreSet(int point) {
+		this.score+=point;
+		return this.score;
+	}
 	public static void main(String[] args) {
 		new MiniGameFrame();
 	}
