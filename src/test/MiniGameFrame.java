@@ -2,10 +2,7 @@ package test;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
-import java.util.ArrayList;
 import java.util.Random;
-import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -15,30 +12,14 @@ import components.Bomb;
 import components.Item;
 import components.Player;
 
-import components.Score;
-
 public class MiniGameFrame extends JFrame {
 
 	MiniGameFrame mContext = this;
 
 	private JLabel backgroundMap;
-	private Bomb object;
+	private Bomb bomb;
 	private Item item;
 	private Player player;
-
-	public Object getObject() {
-		return object;
-	}
-
-
-
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
-	}
 
 	public MiniGameFrame() {
 		initData();
@@ -51,7 +32,7 @@ public class MiniGameFrame extends JFrame {
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(815, 500);
-		object = new Bomb(mContext);
+		bomb = new Bomb(mContext);
 		item = new Item(mContext);
 		player = new Player(player);
 	}
@@ -90,21 +71,6 @@ public class MiniGameFrame extends JFrame {
 			}
 		}).start();
 
-//		new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-//				while (true) {
-//					add(new Object(mContext));
-//					repaint();
-//					try {
-//						Thread.sleep(1000);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//
-//			}
-//		}).start();
 	}
 
 	public void addEventListener() {
@@ -121,8 +87,39 @@ public class MiniGameFrame extends JFrame {
 			}
 		});
 	}
-	
-	// 여기는 한사람만 건드려 
+
+	public JLabel getBackgroundMap() {
+		return backgroundMap;
+	}
+
+	public void setBackgroundMap(JLabel backgroundMap) {
+		this.backgroundMap = backgroundMap;
+	}
+
+	public Bomb getBomb() {
+		return bomb;
+	}
+
+	public void setBomb(Bomb bomb) {
+		this.bomb = bomb;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 	public static void main(String[] args) {
 		new MiniGameFrame();
 	}

@@ -7,10 +7,10 @@ import interfaces.ItemMoveable;
 import state.BombWay;
 import test.MiniGameFrame;
 
-public class Bomb extends JLabel implements ItemMoveable {	
-	
+public class Bomb extends JLabel implements ItemMoveable {
+
 	MiniGameFrame mContext;
-	
+
 	public int getState() {
 		return state;
 	}
@@ -21,66 +21,77 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	private int x;
 	private int y;
-	
+
 	private int state = 0;
 
-	private ImageIcon object;
+	private ImageIcon bomb;
 	private final int SPEED = 3;
-	
+
 	private boolean left;
-	private BombWay objectWay;
-	
+	private BombWay bombWay;
+
 	public Bomb(MiniGameFrame mContext) {
 		this.mContext = mContext;
 		initData();
 		setInitLayout();
 		left();
 	}
-	
+
 	public void initData() {
-		object = new ImageIcon("img/장애물.png");
-		
+		bomb = new ImageIcon("img/bomb.png");
+
 		x = 1000;
-		y = 535;
-		
+		y = 310;
+
 	}
-	
+
 	public void setInitLayout() {
-		setIcon(object);
+		setIcon(bomb);
 		setSize(50, 50);
 		setLocation(x, y);
 	}
 
 	@Override
 	public void left() {
-		objectWay = BombWay.LEFT;
+		bombWay = BombWay.LEFT;
 		left = true;
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				while(left) {
+				while (left) {
 					x -= SPEED;
-					setLocation(x,y);
+					setLocation(x, y);
+
+					// TODO NullPointerException 오류
+					// GameFrame에 Player = new 생성해야함
+					int absX = Math.abs(x - mContext.getPlayer().getX() - 55);
+					int absY = Math.abs(y - mContext.getPlayer().getY());
+					if (absX < 25 && absY < 50) {
+						if (state == 0) {
+							crash();
+						}
+					}
+
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-				
+
 			}
 		}).start();
-		
+
 	}
-	
+
 	public void crash() {
-		//mContext.getObject().setState(1);
+		mContext.getBomb().setState(1);
 		setIcon(null);
-		//mContext.remove(mContext.getObject());
+		mContext.remove(mContext.getBomb());
 		mContext.repaint();
 	}
-	
+
 	public int getX() {
 		return x;
 	}
@@ -97,12 +108,12 @@ public class Bomb extends JLabel implements ItemMoveable {
 		this.y = y;
 	}
 
-	public ImageIcon getObject() {
-		return object;
+	public ImageIcon getBomb() {
+		return bomb;
 	}
 
-	public void setObject(ImageIcon object) {
-		this.object = object;
+	public void setBomb(ImageIcon bomb) {
+		this.bomb = bomb;
 	}
 
 	public boolean isLeft() {
@@ -113,17 +124,16 @@ public class Bomb extends JLabel implements ItemMoveable {
 		this.left = left;
 	}
 
-	public BombWay getObjectWay() {
-		return objectWay;
+	public BombWay getBombWay() {
+		return bombWay;
 	}
 
-	public void setObjectWay(BombWay objectWay) {
-		this.objectWay = objectWay;
+	public void setBombWay(BombWay bombWay) {
+		this.bombWay = bombWay;
 	}
 
 	public int getSPEED() {
 		return SPEED;
 	}
 
-	
 }
