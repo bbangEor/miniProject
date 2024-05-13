@@ -7,10 +7,10 @@ import interfaces.ItemMoveable;
 import state.BombWay;
 import test.MiniGameFrame;
 
-public class Bomb extends JLabel implements ItemMoveable {	
-	
+public class Bomb extends JLabel implements ItemMoveable {
+
 	MiniGameFrame mContext;
-	
+
 	public int getState() {
 		return state;
 	}
@@ -21,30 +21,30 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	private int x;
 	private int y;
-	
+
 	private int state = 0;
 
 	private ImageIcon bomb;
 	private final int SPEED = 3;
-	
+
 	private boolean left;
 	private BombWay bombWay;
-	
+
 	public Bomb(MiniGameFrame mContext) {
 		this.mContext = mContext;
 		initData();
 		setInitLayout();
 		left();
 	}
-	
+
 	public void initData() {
-		bomb = new ImageIcon("img/장애물.png");
-		
+		bomb = new ImageIcon("img/bomb.png");
+
 		x = 1000;
 		y = 310;
-		
+
 	}
-	
+
 	public void setInitLayout() {
 		setIcon(bomb);
 		setSize(50, 50);
@@ -56,24 +56,35 @@ public class Bomb extends JLabel implements ItemMoveable {
 		bombWay = BombWay.LEFT;
 		left = true;
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				while(left) {
+				while (left) {
 					x -= SPEED;
-					setLocation(x,y);
+					setLocation(x, y);
+
+					// TODO NullPointerException 오류
+					// GameFrame에 Player = new 생성해야함
+					int absX = Math.abs(x - mContext.getPlayer().getX() - 55);
+					int absY = Math.abs(y - mContext.getPlayer().getY());
+					if (absX < 25 && absY < 50) {
+						if (state == 0) {
+							crash();
+						}
+					}
+
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-				
+
 			}
 		}).start();
-		
+
 	}
-	
+
 	public void crash() {
 		mContext.getBomb().setState(1);
 		setIcon(null);
@@ -124,8 +135,5 @@ public class Bomb extends JLabel implements ItemMoveable {
 	public int getSPEED() {
 		return SPEED;
 	}
-	
-	
 
-	
 }

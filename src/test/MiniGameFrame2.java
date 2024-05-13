@@ -1,5 +1,6 @@
 package test;
 
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
@@ -12,7 +13,7 @@ import components.Bomb;
 import components.Item;
 import components.Player;
 
-public class MiniGameFrame extends JFrame {
+public class MiniGameFrame2 extends MiniGameFrame {
 
 	MiniGameFrame mContext = this;
 
@@ -20,8 +21,13 @@ public class MiniGameFrame extends JFrame {
 	private Bomb bomb;
 	private Item item;
 	private Player player;
+	private JLabel comments;
+	private JLabel comments2;
+	private int score;
+	boolean flag;
+	private ImageIcon img1;
 
-	public MiniGameFrame() {
+	public MiniGameFrame2() {
 		initData();
 		setInitLayout();
 		addEventListener();
@@ -32,9 +38,13 @@ public class MiniGameFrame extends JFrame {
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(815, 500);
+		img1=new ImageIcon("img/생명.png");
 		bomb = new Bomb(mContext);
 		item = new Item(mContext);
 		player = new Player(player);
+		comments = new JLabel(Integer.toString(score));
+		comments2 = new JLabel(img1);
+		comments.setFont(new Font("나눔고딕", Font.BOLD, 20));
 	}
 
 	public void setInitLayout() {
@@ -43,6 +53,10 @@ public class MiniGameFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		add(player);
+		comments.setBounds(720, 0, 150, 100);
+		comments2.setBounds(20, 0, 150, 100);
+		add(comments);
+		add(comments2);
 		new Thread(new Runnable() {
 
 			@Override
@@ -80,6 +94,9 @@ public class MiniGameFrame extends JFrame {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE:
 					player.up();
+					scoreSet(50);
+					System.out.println(score);
+					comments.setText(Integer.toString(score));
 					break;
 				default:
 					break;
@@ -120,8 +137,13 @@ public class MiniGameFrame extends JFrame {
 		this.player = player;
 	}
 
+	public int scoreSet(int point) {
+		this.score+=point;
+		return this.score;
+	}
+
 	public static void main(String[] args) {
-		new MiniGameFrame();
+		new MiniGameFrame2();
 	}
 
 }
