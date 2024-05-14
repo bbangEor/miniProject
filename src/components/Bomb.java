@@ -55,6 +55,7 @@ public class Bomb extends JLabel implements ItemMoveable {
 	public void left() {
 		bombWay = BombWay.LEFT;
 		left = true;
+		
 		new Thread(new Runnable() {
 
 			@Override
@@ -65,13 +66,16 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 					// TODO NullPointerException 오류
 					// GameFrame에 Player = new 생성해야함
+					 if (mContext != null && mContext.getPlayer() != null) {
+						 
 					int absX = Math.abs(x - mContext.getPlayer().getX() - 55);
 					int absY = Math.abs(y - mContext.getPlayer().getY());
 					if (absX < 25 && absY < 50) {
 						if (state == 0) {
 							crash();
+							}
 						}
-					}
+					 }
 
 					try {
 						Thread.sleep(10);

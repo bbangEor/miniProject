@@ -86,18 +86,7 @@ public class MainScreen extends MiniGameFrame {
 	}
 
 	public void addEventListener() {
-//		this.addKeyListener(new KeyAdapter() {
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//			switch (e.getKeyCode()) {
-//			case KeyEvent.VK_UP: 
-//			{
-//				
-//				}
-//			default:break;
-//				}
-//			}
-//		});
+
 		button1.addMouseListener(new MouseAdapter() {
 
 			@Override
