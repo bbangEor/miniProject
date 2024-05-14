@@ -76,7 +76,7 @@ public class MainScreen extends MiniGameFrame {
 	}
 
 	public void addEventListener() {
-		// MouseListener : 마우스의 입력을 감지하는 리스너
+
 		button1.addMouseListener(new MouseAdapter() {
 			// 마우스 버튼을 누를때 발생
 			@Override

@@ -26,7 +26,7 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	private int x;
 	private int y;
-	private int i = 0;
+	private int i=0;
 	private int state = 0;
 
 	private ImageIcon bomb;
@@ -34,9 +34,9 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	private boolean left;
 	private BombWay bombWay;
-
+	
 	// 추가 코드
-	public static List<Bomb> bombs = new ArrayList<>();
+	public static List<Bomb> bombs =new ArrayList<>();
 
 	public Bomb(MiniGameFrame mContext) {
 		this.mContext = mContext;
@@ -64,7 +64,7 @@ public class Bomb extends JLabel implements ItemMoveable {
 	public void left() {
 		bombWay = BombWay.LEFT;
 		left = true;
-
+		
 		new Thread(new Runnable() {
 
 			@Override
@@ -75,19 +75,19 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 					// TODO NullPointerException 오류
 					// GameFrame에 Player = new 생성해야함
-					if (mContext != null && mContext.getPlayer() != null) {
-
-						int absX = Math.abs(x - mContext.getPlayer().getX() - 5);
-						int absY = Math.abs(y - mContext.getPlayer().getY());
-						if (absX < 25 && absY < 50) {
-							if (state == 0) {
-								crash();
-								left = false;
-								i++;
-								System.out.println("가동중" + i);
+					 if (mContext != null && mContext.getPlayer() != null) {
+						 
+					int absX = Math.abs(x - mContext.getPlayer().getX() -5);
+					int absY = Math.abs(y - mContext.getPlayer().getY());
+					if (absX < 25 && absY < 50) {
+						if (state == 0) {
+							crash();
+							left=false;
+							i++;
+							System.out.println("가동중"+i);
 							}
 						}
-					}
+					 }
 
 					try {
 						Thread.sleep(10);
@@ -96,29 +96,29 @@ public class Bomb extends JLabel implements ItemMoveable {
 					}
 				}
 
-				left = false;
+				left=false;
 			}
 		}).start();
 
 	}
 
-	// 추가중인 코드
+	//추가중인 코드
 	public void crash() {
-		for (int i = 0; i < bombs.size(); i++) {
+		for (int i=0;i<bombs.size();i++) {
 			Bomb bomb = bombs.get(i);
-			if (bomb.mContext != null) {
-				System.out.println("폭탄닿음+" + i);
-				bomb.setIcon(null);
-				bomb.mContext.remove(bomb);
-				mContext.setVisible(false);
-				mContext.setFlag(false);
-
-				bomb.left = false;
+			if(bomb.mContext!=null) {
+				System.out.println("폭탄닿음+"+i);
+		        bomb.setIcon(null);
+		        bomb.mContext.remove(bomb);
+		        mContext.setVisible(false);
+		        mContext.setFlag(false);
+		        
+		        bomb.left = false;
 			}
 		}
-		bombs.clear(); // 리스트 비우기
-		this.left = false;
-		new ResultScreen();
+	    bombs.clear(); // 리스트 비우기
+	    this.left=false;
+	    new ResultScreen();
 	}
 
 	public int getX() {
