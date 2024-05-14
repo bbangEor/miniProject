@@ -1,5 +1,7 @@
 package components;
 
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -12,7 +14,6 @@ public class Item extends JLabel implements ItemMoveable {
 	MiniGameFrame mContext;
 
 	private int state = 0;
-	private Score score;
 	private Shield shield;
 
 	private int x;
@@ -34,7 +35,6 @@ public class Item extends JLabel implements ItemMoveable {
 		item = new ImageIcon("img/dotori.png");
 		x = 1000;
 		y = 310;
-		
 
 	}
 
@@ -42,13 +42,6 @@ public class Item extends JLabel implements ItemMoveable {
 		setIcon(item);
 		setSize(50, 50);
 		setLocation(x, y);
-	}
-
-	public int scoreItem(Score score) {
-		int temp=0;
-		this.score = score;
-		temp=score.ScoreAll();
-		return temp;
 	}
 
 	@Override
@@ -82,12 +75,12 @@ public class Item extends JLabel implements ItemMoveable {
 	}
 
 	public void crash() {
-		mContext.getItem().setState(1);
+		// mContext.getItem().setState(1);
+		state = 1;
 		setIcon(null);
-		mContext.remove(mContext.getItem());
+		mContext.remove(this);
 		mContext.repaint();
-		mContext.getItem().scoreItem(score);
-		System.out.println("crash" +scoreItem(score));
+		mContext.scoreSet();
 	}
 
 	public int getState() {

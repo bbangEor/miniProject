@@ -45,23 +45,25 @@ public class ResultScreen extends JFrame {
 
 		img2 = new ImageIcon("img/gameOver.png"); // 게임 종료 이미지
 
-		button2 = new JButton("다시 하기");
+		button2 = new JButton("RETRY");
+		button2.setFont(new Font("둥근모꼴", Font.PLAIN, 25));
 		button2.setBorderPainted(false); // 버튼 투명
 		button2.setContentAreaFilled(false); // 버튼 투명
 		button2.setFocusPainted(false); // 버튼 투명
-		button2.setBounds(260, 300, 150, 50);
+		button2.setBounds(230, 250, 150, 50);
 
-		button3 = new JButton("메인으로 돌아가기");
+		button3 = new JButton("MAIN MENU");
+		button3.setFont(new Font("둥근모꼴", Font.PLAIN, 25));
 		button3.setBorderPainted(false); // 버튼 투명
 		button3.setContentAreaFilled(false); // 버튼 투명
 		button3.setFocusPainted(false); // 버튼 투명
-		button3.setBounds(430, 300, 150, 50);
+		button3.setBounds(360, 250, 210, 50);
 
 		button4 = new JButton(img2);
 		button4.setContentAreaFilled(false); // 버튼 투명
 		button4.setBorderPainted(false); // 버튼 투명
 		button4.setFocusPainted(false); // 버튼 투명
-		button4.setBounds(230, 70, 350, 120);
+		button4.setBounds(230, 100, 350, 120);
 
 	} // end of initData()
 
@@ -81,13 +83,13 @@ public class ResultScreen extends JFrame {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		Font f = new Font("둥근모꼴", Font.PLAIN, 27);
+		Font f = new Font("둥근모꼴", Font.PLAIN, 30);
 		g.setFont(f);
 		// 점수 : 폰트 출력
-		g.drawString("score:", 340, 280);
+		g.drawString("score:", 320, 270);
 		// int 값을 -> String으로 변환
-//		String scoreDraw = Integer.toString(score.getFinalScore());
-//		g.drawString(scoreDraw, 430, 280);
+		String scoreDraw = Integer.toString(resultScore);
+		g.drawString(scoreDraw, 410, 270);
 	} // end of paint()
 
 	// 마우스 이벤트 리스너
@@ -118,11 +120,12 @@ public class ResultScreen extends JFrame {
 		}); // end of button2
 
 		button3.addMouseListener(new MouseAdapter() {
-			
+
 			// 메인으로 돌아가기
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				new MainScreen();
 				dispose();
 				// setVisible(false);
 			}

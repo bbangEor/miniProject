@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import test.MiniGameFrame;
-import test.MiniGameFrame2;
 
 public class MainScreen extends MiniGameFrame {
 
@@ -38,16 +37,16 @@ public class MainScreen extends MiniGameFrame {
 		setSize(815, 500);
 		jPanel1 = new JPanel();
 		img1 = new ImageIcon("img/startGame.png");
-		img2 = new ImageIcon("img/gameOver.png");
+		img2 = new ImageIcon("img/quit.png");
 		img3 = new ImageIcon("img/startGame2.png");
-		img4 = new ImageIcon("img/gameOver2.png");
+		img4 = new ImageIcon("img/quit2.png");
 		button1 = new JButton(img1);
 		button2 = new JButton(img2);
 		button3 = new JButton(img3);
 		button4 = new JButton(img4);
 
-		comments = new JLabel("오오오오");
-		comments.setFont(new Font("나눔고딕", Font.BOLD, 20));
+		comments = new JLabel("MINI GAME");
+		comments.setFont(new Font("둥근모꼴", Font.PLAIN, 20));
 //		jPanel1.add(comments);
 
 	}
@@ -55,11 +54,11 @@ public class MainScreen extends MiniGameFrame {
 	public void setInitLayout() {
 		setResizable(false);
 		setLayout(null);
-		button1.setBounds(210, 70, 350, 100);
+		button1.setBounds(210, 130, 350, 100);
 		button1.setBorderPainted(false);
 		button1.setContentAreaFilled(false);
 		button1.setFocusPainted(false);
-		button2.setBounds(210, 270, 350, 100);
+		button2.setBounds(210, 250, 350, 100);
 		button2.setBorderPainted(false);
 		button2.setContentAreaFilled(false);
 		button2.setFocusPainted(false);
@@ -77,20 +76,9 @@ public class MainScreen extends MiniGameFrame {
 	}
 
 	public void addEventListener() {
-//		this.addKeyListener(new KeyAdapter() {
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//			switch (e.getKeyCode()) {
-//			case KeyEvent.VK_UP: 
-//			{
-//				
-//				}
-//			default:break;
-//				}
-//			}
-//		});
+		// MouseListener : 마우스의 입력을 감지하는 리스너
 		button1.addMouseListener(new MouseAdapter() {
-
+			// 마우스 버튼을 누를때 발생
 			@Override
 			public void mousePressed(MouseEvent e) {
 				button1.setVisible(false);
@@ -99,6 +87,7 @@ public class MainScreen extends MiniGameFrame {
 				setVisible(false);
 			}
 
+			// 마우스가 해당 컴포넌트 영역 밖으로 나갈때 발생
 			@Override
 			public void mouseExited(MouseEvent e) {
 				button1.setVisible(true);
@@ -108,11 +97,12 @@ public class MainScreen extends MiniGameFrame {
 				repaint();
 			}
 
+			// 마우스가 해당 컴포넌트 영역 안으로 들어올때 발생
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				button1.setVisible(false);
 				button3.setVisible(true);
-				button3.setBounds(210, 70, 350, 100);
+				button3.setBounds(210, 130, 350, 100);
 				button3.setBorderPainted(false);
 				button3.setContentAreaFilled(false);
 				button3.setFocusPainted(false);
@@ -120,6 +110,7 @@ public class MainScreen extends MiniGameFrame {
 				repaint();
 			}
 
+			// 마우스가 해당 컴포넌트를 클릭했을때.
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				button1.setVisible(false);
@@ -128,7 +119,7 @@ public class MainScreen extends MiniGameFrame {
 				setVisible(false);
 			}
 		});
-
+		// 마우스 버튼을 누를때 발생
 		button2.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				button2.setVisible(false);
@@ -137,11 +128,12 @@ public class MainScreen extends MiniGameFrame {
 				setVisible(false);
 			}
 
+			// 마우스가 해당 컴포넌트 영역 안으로 들어올때 발생
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				button2.setVisible(false);
 				button4.setVisible(true);
-				button4.setBounds(210, 270, 350, 100);
+				button4.setBounds(210, 250, 350, 100);
 				button4.setBorderPainted(false);
 				button4.setContentAreaFilled(false);
 				button4.setFocusPainted(false);
@@ -149,6 +141,7 @@ public class MainScreen extends MiniGameFrame {
 				repaint();
 			}
 
+			// 마우스가 해당 컴포넌트 영역 밖으로 나갈때 발생
 			@Override
 			public void mouseExited(MouseEvent e) {
 				button2.setVisible(true);

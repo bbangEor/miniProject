@@ -5,7 +5,8 @@ public class Score {
 	private final int SCORE = 1000;
 	private int sum = 0;
 	private boolean flag;
-
+	
+	////TODO 수정필요
 	public int ScoreAll() {
 
 		flag = true;
@@ -30,6 +31,7 @@ public class Score {
 		}).start();
 
 		return (int) sum;
-	}
 
-}
+	} // end of main
+
+} // end of class

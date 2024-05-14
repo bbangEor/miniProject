@@ -1,9 +1,14 @@
 package components;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import interfaces.ItemMoveable;
+import screen.MainScreen;
+import screen.ResultScreen;
 import state.BombWay;
 import test.MiniGameFrame;
 
@@ -21,7 +26,7 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	private int x;
 	private int y;
-
+	private int i = 0;
 	private int state = 0;
 
 	private ImageIcon bomb;
@@ -30,11 +35,15 @@ public class Bomb extends JLabel implements ItemMoveable {
 	private boolean left;
 	private BombWay bombWay;
 
+	// 추가 코드
+	public static List<Bomb> bombs = new ArrayList<>();
+
 	public Bomb(MiniGameFrame mContext) {
 		this.mContext = mContext;
 		initData();
 		setInitLayout();
 		left();
+		bombs.add(this);
 	}
 
 	public void initData() {
@@ -55,6 +64,7 @@ public class Bomb extends JLabel implements ItemMoveable {
 	public void left() {
 		bombWay = BombWay.LEFT;
 		left = true;
+
 		new Thread(new Runnable() {
 
 			@Override
@@ -65,11 +75,17 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 					// TODO NullPointerException 오류
 					// GameFrame에 Player = new 생성해야함
-					int absX = Math.abs(x - mContext.getPlayer().getX() - 55);
-					int absY = Math.abs(y - mContext.getPlayer().getY());
-					if (absX < 25 && absY < 50) {
-						if (state == 0) {
-							crash();
+					if (mContext != null && mContext.getPlayer() != null) {
+
+						int absX = Math.abs(x - mContext.getPlayer().getX() - 5);
+						int absY = Math.abs(y - mContext.getPlayer().getY());
+						if (absX < 25 && absY < 50) {
+							if (state == 0) {
+								crash();
+								left = false;
+								i++;
+								System.out.println("가동중" + i);
+							}
 						}
 					}
 
@@ -80,16 +96,29 @@ public class Bomb extends JLabel implements ItemMoveable {
 					}
 				}
 
+				left = false;
 			}
 		}).start();
 
 	}
 
+	// 추가중인 코드
 	public void crash() {
-		mContext.getBomb().setState(1);
-		setIcon(null);
-		mContext.remove(mContext.getBomb());
-		mContext.repaint();
+		for (int i = 0; i < bombs.size(); i++) {
+			Bomb bomb = bombs.get(i);
+			if (bomb.mContext != null) {
+				System.out.println("폭탄닿음+" + i);
+				bomb.setIcon(null);
+				bomb.mContext.remove(bomb);
+				mContext.setVisible(false);
+				mContext.setFlag(false);
+
+				bomb.left = false;
+			}
+		}
+		bombs.clear(); // 리스트 비우기
+		this.left = false;
+		new ResultScreen();
 	}
 
 	public int getX() {

@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import components.Bomb;
 import components.Item;
 import components.Player;
-import components.Score;
+import screen.MainScreen;
 
 public class MiniGameFrame extends JFrame {
 
@@ -25,8 +25,8 @@ public class MiniGameFrame extends JFrame {
 	private ImageIcon player2;
 	private JLabel comments;
 	private JLabel comments2;
-	private Score score;
-	boolean flag;
+	private int score;
+	boolean flag = true;
 	private ImageIcon img1;
 
 	public MiniGameFrame() {
@@ -36,24 +36,23 @@ public class MiniGameFrame extends JFrame {
 	}
 
 	public void initData() {
-		backgroundMap = new JLabel(new ImageIcon("img/Background1.jpg"));
+		backgroundMap = new JLabel(new ImageIcon("img/Background.jpg"));
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(815, 500);
-		bomb = new Bomb(mContext);
-		item = new Item(mContext);
+		// bomb = new Bomb(mContext);
+		// item = new Item(mContext);
 		player = new Player(player);
-		score = new Score();
 	}
 
 	public void setInitLayout() {
 		setLayout(null);
-		// setResizable(false);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		add(player);
 		img1 = new ImageIcon("img/heart.png");
-		comments = new JLabel(Integer.toString(item.scoreItem(score)));
+		comments = new JLabel(Integer.toString(score));
 		comments2 = new JLabel(img1);
 		comments.setFont(new Font("나눔고딕", Font.BOLD, 20));
 		comments.setBounds(720, 0, 150, 100);
@@ -64,7 +63,7 @@ public class MiniGameFrame extends JFrame {
 
 			@Override
 			public void run() {
-				while (true) {
+				while (flag) {
 					int a = (new Random()).nextInt(10);
 					if (a < 7) {
 						int b = (new Random()).nextInt(10);
@@ -77,7 +76,6 @@ public class MiniGameFrame extends JFrame {
 						int b = (new Random()).nextInt(10);
 						if (b < 5) {
 							add(new Bomb(mContext));
-
 							repaint();
 						}
 					}
@@ -135,24 +133,26 @@ public class MiniGameFrame extends JFrame {
 		return player;
 	}
 
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
 	public void setPlayer(Player player, ImageIcon shieldMotion) {
 		this.player = player;
 		this.player2 = shieldMotion;
 	}
 
-//	public int scoreSet(int score) {
-//		
-//		this.score += score;
-//		return score;
-//	}
-
-//	public int scoreSet(int point) {
-//		this.score+=point;
-//		return this.score;
-//	}
-	public static void main(String[] args) {
-		new MiniGameFrame();
-
+	public void scoreSet() {
+		score++;
+		comments.setText(Integer.toString(score));
 	}
 
+	public static void main(String[] args) {
+		// new MiniGameFrame();
+		new MainScreen();
+	}
 }
