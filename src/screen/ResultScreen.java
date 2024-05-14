@@ -14,7 +14,7 @@ import test.MiniGameFrame;
 
 public class ResultScreen extends JFrame {
 
-	ResultScreen mContext;
+	// ResultScreen mContext;
 
 	// ImageIcon gameOver;
 	private JLabel backgroundMap;
@@ -22,12 +22,16 @@ public class ResultScreen extends JFrame {
 	private JButton mainMenu;
 	private JButton gameOver;
 	private ImageIcon gameOverIcon;
+	
+	MiniGameFrame mContext;
 
 	// 점수 표시 확인 테스트 (삭제예정)
 	private int resultScore;
 	
 	// 생성자
-	public ResultScreen() {
+	// 생성자 의존 DI 주입
+	public ResultScreen(MiniGameFrame mContext) {
+		this.mContext = mContext;
 		initData();
 		setInitLayout();
 		mouseEvent();
@@ -84,10 +88,9 @@ public class ResultScreen extends JFrame {
 		Font f = new Font("둥근모꼴", Font.PLAIN, 30);
 		g.setFont(f);
 		// 점수 : 폰트 출력
-		g.drawString("score:", 320, 270);
-		// int 값을 -> String으로 변환
-		String scoreDraw = Integer.toString(resultScore);
-		g.drawString(scoreDraw, 410, 270);
+		
+		String scoreDraw = "score : " + Integer.toString(mContext.getScores());
+		g.drawString(scoreDraw, 320, 270);
 	} // end of paint()
 
 	// 마우스 이벤트 리스너
@@ -143,7 +146,7 @@ public class ResultScreen extends JFrame {
 
 	} // end of mouseEvent()
 
-	public static void main(String[] args) {
-		new ResultScreen();
-	} // end of main
+//	public static void main(String[] args) {
+//		new ResultScreen();
+//	} // end of main
 }

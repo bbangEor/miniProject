@@ -101,7 +101,7 @@ public class Bomb extends JLabel implements ItemMoveable {
 		}
 		bombs.clear(); // 리스트 비우기
 		this.left = false;
-		new ResultScreen();
+		new ResultScreen(mContext);
 	}
 
 	public int getBombX() {

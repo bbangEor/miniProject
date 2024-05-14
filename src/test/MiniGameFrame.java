@@ -105,9 +105,10 @@ public class MiniGameFrame extends JFrame {
 
 	}
 	
+
 	// 스코어
 	public void scoreSet() {
-		scores++;
+		 scores++;
 		score.setText(Integer.toString(scores));
 	}
 	
@@ -175,6 +176,8 @@ public class MiniGameFrame extends JFrame {
 	public void setScore(JLabel score) {
 		this.score = score;
 	}
+	
+	
 
 	public int getScores() {
 		return scores;
