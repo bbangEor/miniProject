@@ -2,27 +2,34 @@ package components;
 
 public class Score {
 
-	private final int SCORE1 = 100; // 젤리 1 점수
-	private final int SCORE2 = 1000; // 젤리 2 점수
-	private final int SCORE3 = 5000; // 젤리 3 점수
-	private int finalScore = 0; // 게임 끝나면 출력될 점수
+	private final int SCORE = 1000;
+	private int sum = 0;
+	private boolean flag;
 
+	public int ScoreAll() {
 
-	public int getFinalScore() {
-	return finalScore;
+		flag = true;
+		new Thread(new Runnable() {
+			int i = 1;
+
+			@Override
+			public void run() {
+				while (flag) {
+					sum = SCORE * i;
+					System.out.println(sum);
+					i++;
+
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				flag = false;
+			}
+		}).start();
+
+		return (int) sum;
 	}
 
-	public void touchAcorn1() { // 젤리 1 먹으면 호출
-	finalScore = finalScore + SCORE1;
-	}
-
-	public void touchAcorn2() {// 젤리 2 먹으면 호출
-	finalScore = finalScore + SCORE1;
-	}
-
-	public void touchAcorn3() {// 젤리 3 먹으면 호출
-	finalScore = finalScore + SCORE1;
-	}
-
-	}
-
+}

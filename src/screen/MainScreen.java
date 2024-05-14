@@ -1,23 +1,14 @@
 package screen;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
-import components.Player;
 import test.MiniGameFrame;
 import test.MiniGameFrame2;
 
@@ -42,7 +33,7 @@ public class MainScreen extends MiniGameFrame {
 	}
 
 	public void initData() {
-		mainmenuMap = new JLabel(new ImageIcon("img/Background1.jpg"));
+		mainmenuMap = new JLabel(new ImageIcon("img/Background.jpg"));
 		setContentPane(mainmenuMap);// 배경화면 출력
 		setSize(815, 500);
 		jPanel1 = new JPanel();
@@ -93,7 +84,7 @@ public class MainScreen extends MiniGameFrame {
 			public void mousePressed(MouseEvent e) {
 				button1.setVisible(false);
 				System.out.println("길게누름");
-				new MiniGameFrame2();
+				new MiniGameFrame();
 				setVisible(false);
 			}
 
@@ -122,7 +113,7 @@ public class MainScreen extends MiniGameFrame {
 			public void mouseClicked(MouseEvent e) {
 				button1.setVisible(false);
 
-				new MiniGameFrame2();
+				new MiniGameFrame();
 				setVisible(false);
 			}
 		});
