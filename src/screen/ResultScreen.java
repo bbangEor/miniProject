@@ -24,8 +24,8 @@ public class ResultScreen extends JFrame {
 	private ImageIcon gameOverIcon;
 
 	// 점수 표시 확인 테스트 (삭제예정)
-	private int resultScore = 99999;
-
+	private int resultScore;
+	
 	// 생성자
 	public ResultScreen() {
 		initData();

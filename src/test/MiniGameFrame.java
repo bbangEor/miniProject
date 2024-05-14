@@ -168,4 +168,20 @@ public class MiniGameFrame extends JFrame {
 		this.player2 = shieldMotion;
 	}
 
+	public JLabel getScore() {
+		return score;
+	}
+
+	public void setScore(JLabel score) {
+		this.score = score;
+	}
+
+	public int getScores() {
+		return scores;
+	}
+
+	public void setScores(int scores) {
+		this.scores = scores;
+	}	
+
 }
