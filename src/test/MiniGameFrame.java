@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import components.Bomb;
 import components.Item;
 import components.Player;
+import components.Score;
 
 public class MiniGameFrame extends JFrame {
 
@@ -21,9 +22,10 @@ public class MiniGameFrame extends JFrame {
 	private Bomb bomb;
 	private Item item;
 	private Player player;
+	private ImageIcon player2;
 	private JLabel comments;
 	private JLabel comments2;
-	private int score;
+	private Score score;
 	boolean flag;
 	private ImageIcon img1;
 
@@ -41,6 +43,7 @@ public class MiniGameFrame extends JFrame {
 		bomb = new Bomb(mContext);
 		item = new Item(mContext);
 		player = new Player(player);
+		score = new Score();
 	}
 
 	public void setInitLayout() {
@@ -49,10 +52,10 @@ public class MiniGameFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		add(player);
-		img1=new ImageIcon("img/heart.png");
-		comments = new JLabel(Integer.toString(score));
+		img1 = new ImageIcon("img/heart.png");
+		comments = new JLabel(Integer.toString(item.scoreItem(score)));
 		comments2 = new JLabel(img1);
-		comments.setFont(new Font("둥근모체", Font.BOLD, 20));
+		comments.setFont(new Font("나눔고딕", Font.BOLD, 20));
 		comments.setBounds(720, 0, 150, 100);
 		comments2.setBounds(20, 0, 150, 100);
 		add(comments);
@@ -67,13 +70,15 @@ public class MiniGameFrame extends JFrame {
 						int b = (new Random()).nextInt(10);
 						if (b < 5) {
 							add(new Item(mContext));
-							repaint();													
+							repaint();
 						}
+
 					} else {
 						int b = (new Random()).nextInt(10);
 						if (b < 5) {
 							add(new Bomb(mContext));
-							repaint();							
+
+							repaint();
 						}
 					}
 					try {
@@ -130,16 +135,24 @@ public class MiniGameFrame extends JFrame {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(Player player, ImageIcon shieldMotion) {
 		this.player = player;
+		this.player2 = shieldMotion;
 	}
-	
-	public int scoreSet(int point) {
-		this.score+=point;
-		return this.score;
-	}
+
+//	public int scoreSet(int score) {
+//		
+//		this.score += score;
+//		return score;
+//	}
+
+//	public int scoreSet(int point) {
+//		this.score+=point;
+//		return this.score;
+//	}
 	public static void main(String[] args) {
 		new MiniGameFrame();
+
 	}
 
 }

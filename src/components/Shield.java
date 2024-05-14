@@ -7,23 +7,24 @@ import interfaces.ItemMoveable;
 import state.BombWay;
 import test.MiniGameFrame;
 
-public class Item extends JLabel implements ItemMoveable {
+public class Shield extends JLabel implements ItemMoveable {
 
 	MiniGameFrame mContext;
 
 	private int state = 0;
-	private Score score;
-	private Shield shield;
 
 	private int x;
 	private int y;
-	private ImageIcon item;
+	private ImageIcon shield;
+	private ImageIcon shieldMotion;
 	private final int SPEED = 3;
 
 	private boolean left;
 	private BombWay bombWay;
 
-	public Item(MiniGameFrame mContext2) {
+	private Player player;
+
+	public Shield(MiniGameFrame mContext2) {
 		this.mContext = mContext2;
 		initData();
 		setInitLayout();
@@ -31,24 +32,17 @@ public class Item extends JLabel implements ItemMoveable {
 	}
 
 	public void initData() {
-		item = new ImageIcon("img/dotori.png");
+		shield = new ImageIcon("img/shield.png");
+		shieldMotion = new ImageIcon("img/shieldMotion.png");
 		x = 1000;
 		y = 310;
-		
 
 	}
 
 	public void setInitLayout() {
-		setIcon(item);
+		setIcon(shield);
 		setSize(50, 50);
 		setLocation(x, y);
-	}
-
-	public int scoreItem(Score score) {
-		int temp=0;
-		this.score = score;
-		temp=score.ScoreAll();
-		return temp;
 	}
 
 	@Override
@@ -85,9 +79,8 @@ public class Item extends JLabel implements ItemMoveable {
 		mContext.getItem().setState(1);
 		setIcon(null);
 		mContext.remove(mContext.getItem());
+		mContext.setPlayer(player, shieldMotion);
 		mContext.repaint();
-		mContext.getItem().scoreItem(score);
-		System.out.println("crash" +scoreItem(score));
 	}
 
 	public int getState() {
@@ -114,12 +107,12 @@ public class Item extends JLabel implements ItemMoveable {
 		this.y = y;
 	}
 
-	public ImageIcon getItem() {
-		return item;
+	public ImageIcon getShield() {
+		return shield;
 	}
 
-	public void setItem(ImageIcon item) {
-		this.item = item;
+	public void setShield(ImageIcon shield) {
+		this.shield = shield;
 	}
 
 	public boolean isLeft() {
@@ -141,5 +134,4 @@ public class Item extends JLabel implements ItemMoveable {
 	public int getSPEED() {
 		return SPEED;
 	}
-
 }
