@@ -64,12 +64,19 @@ public class Bomb extends JLabel implements ItemMoveable {
 					setLocation(bombX, bombY);
 					// 폭탄이 닿았을 때 좌표 계산
 					if (mContext != null && mContext.getPlayer() != null) {
-						int absX = Math.abs(bombX - mContext.getPlayer().getX() - 5);
+						int absX = Math.abs(bombX - mContext.getPlayer().getX() - 55);
 						int absY = Math.abs(bombY - mContext.getPlayer().getY());
 						if (absX < 25 && absY < 50) {
 							if (state == 0) {
-								crash();
-								left = false;
+								if (mContext.getPlayer().isShielded() == true) {
+									System.out.println("test");
+									mContext.getPlayer().setShielded(false);
+									mContext.getPlayer().setIcon(mContext.getPlayer().getPlayer());
+									shieldCrash();
+								} else {
+									crash();
+									left = false;
+								}
 							}
 						}
 					}
@@ -87,6 +94,7 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	// 폭탄이 닿았을 때
 	public void crash() {
+		state = 1;
 		for (int i = 0; i < bombs.size(); i++) {
 			Bomb bomb = bombs.get(i);
 			if (bomb.mContext != null) {
@@ -104,17 +112,15 @@ public class Bomb extends JLabel implements ItemMoveable {
 		new ResultScreen(mContext);
 	}
 
-	public void crash2() {
-		for (int i = 0; i < bombs.size(); i++) {
+	public void shieldCrash() {
+		state = 1;
+		for (int i = 0; i < 1; i++) {
 			Bomb bomb = bombs.get(i);
 			if (bomb.mContext != null) {
-				System.out.println("폭탄닿음+" + i);
-				bomb.setIcon(null);
-				bomb.mContext.remove(bomb);
-				bomb.left = false;
+				mContext.remove(this);
+				mContext.repaint();
 			}
 		}
-		bombs.clear(); // 리스트 비우기
 	}
 
 	public int getBombX() {

@@ -79,17 +79,21 @@ public class MiniGameFrame extends JFrame {
 			@Override
 			public void run() {
 				while (flag) {
+					// a = 랜덤생성
 					int a = (new Random()).nextInt(10);
 					if (a < 7) {
+						// b = 도토리
 						int b = (new Random()).nextInt(10);
 						if (b < 5) {
 							add(new Item(mContext));
 							repaint();
 						} else if (a < 7) {
+							// c = 폭탄
 							int c = (new Random()).nextInt(10);
 							if (c < 5) {
 								add(new Bomb(mContext));
 								repaint();
+								// d = 쉴드
 							} else if (a < 7) {
 								int d = (new Random()).nextInt(10);
 								if (d < 5) {
@@ -184,6 +188,11 @@ public class MiniGameFrame extends JFrame {
 
 	public void setScores(int scores) {
 		this.scores = scores;
+	}
+
+	public void remove(ImageIcon bomb2) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

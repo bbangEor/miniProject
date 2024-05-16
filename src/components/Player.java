@@ -18,6 +18,7 @@ public class Player extends JLabel {
 	// 움직임 상태
 	private boolean up;
 	private boolean down;
+	private boolean isShielded;
 	// 플레이어 속도 상태
 	private final int JUMPSPEED = 2;
 
@@ -39,7 +40,7 @@ public class Player extends JLabel {
 	}
 
 	private void setInitLayout() {
-		
+
 		setIcon(player);
 		setSize(130, 100);
 		setLocation(playerX, playerY);
@@ -134,6 +135,14 @@ public class Player extends JLabel {
 
 	public ImageIcon getShieldMotion() {
 		return shieldMotion;
+	}
+
+	public boolean isShielded() {
+		return isShielded;
+	}
+
+	public void setShielded(boolean isShielded) {
+		this.isShielded = isShielded;
 	}
 
 }
