@@ -54,7 +54,7 @@ public class MiniGameFrame extends JFrame {
 		img1 = new ImageIcon("img/heart.png");
 		comments = new JLabel(Integer.toString(score));
 		comments2 = new JLabel(img1);
-		comments.setFont(new Font("나눔고딕", Font.BOLD, 20));
+		comments.setFont(new Font("둥근모꼴", Font.PLAIN, 35));
 		comments.setBounds(720, 0, 150, 100);
 		comments2.setBounds(20, 0, 150, 100);
 		add(comments);
