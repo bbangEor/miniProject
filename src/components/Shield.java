@@ -1,3 +1,4 @@
+
 package components;
 
 import javax.swing.ImageIcon;
@@ -12,20 +13,22 @@ public class Shield extends JLabel implements ItemMoveable {
 	MiniGameFrame mContext;
 
 	private int state = 0;
-
 	private int x;
 	private int y;
 	private ImageIcon shield;
+	private Player player;
 	private ImageIcon shieldMotion;
+	private ImageIcon shieldMotion2;
 	private final int SPEED = 3;
-
 	private boolean left;
 	private BombWay bombWay;
 
-	private Player player;
+	Bomb bomb;
 
 	public Shield(MiniGameFrame mContext2) {
 		this.mContext = mContext2;
+		this.player = mContext2.getPlayer();
+		this.bomb = mContext2.getBomb();
 		initData();
 		setInitLayout();
 		left();
@@ -34,9 +37,9 @@ public class Shield extends JLabel implements ItemMoveable {
 	public void initData() {
 		shield = new ImageIcon("img/shield.png");
 		shieldMotion = new ImageIcon("img/shieldMotion.png");
+		shieldMotion2 = new ImageIcon("img/Player.png");
 		x = 1000;
 		y = 310;
-
 	}
 
 	public void setInitLayout() {
@@ -50,7 +53,6 @@ public class Shield extends JLabel implements ItemMoveable {
 		bombWay = BombWay.LEFT;
 		left = true;
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				while (left) {
@@ -69,18 +71,28 @@ public class Shield extends JLabel implements ItemMoveable {
 						}
 					}
 				}
-
 			}
 		}).start();
-
 	}
 
 	public void crash() {
-		mContext.getItem().setState(1);
+		state = 1;
 		setIcon(null);
-		mContext.remove(mContext.getItem());
-		mContext.setPlayer(player, shieldMotion);
+		mContext.remove(this);
 		mContext.repaint();
+
+		if (state == 1) {
+			player.setIcon(player.getShieldMotion());
+			System.out.println("쉴드 모션");
+
+			try {
+				Thread.sleep(3000);
+				System.out.println("쉴드 모션 해제");
+				player.setIcon(player.getPlayer());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public int getState() {

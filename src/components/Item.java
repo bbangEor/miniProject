@@ -13,14 +13,18 @@ public class Item extends JLabel implements ItemMoveable {
 
 	MiniGameFrame mContext;
 
-	private int state = 0;
-	private Shield shield;
-
-	private int x;
-	private int y;
+	// 아이템 이미지
 	private ImageIcon item;
-	private final int SPEED = 3;
+	// 아이템 좌표
+	private int itemX;
+	private int itemY;
+	// 아이템 상태
+	private int state = 0;
 
+	private Shield shield;
+	// 아이템 속도
+	private final int SPEED = 3;
+	// 아이템 방향
 	private boolean left;
 	private BombWay bombWay;
 
@@ -33,15 +37,14 @@ public class Item extends JLabel implements ItemMoveable {
 
 	public void initData() {
 		item = new ImageIcon("img/dotori.png");
-		x = 1000;
-		y = 310;
-
+		itemX = 1000;
+		itemY = 310;
 	}
 
 	public void setInitLayout() {
 		setIcon(item);
 		setSize(50, 50);
-		setLocation(x, y);
+		setLocation(itemX, itemY);
 	}
 
 	@Override
@@ -49,19 +52,19 @@ public class Item extends JLabel implements ItemMoveable {
 		bombWay = BombWay.LEFT;
 		left = true;
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				while (left) {
-					x -= SPEED;
-					setLocation(x, y);
+					itemX -= SPEED;
+					setLocation(itemX, itemY);
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					int absX = Math.abs(x - mContext.getPlayer().getX() - 55);
-					int absY = Math.abs(y - mContext.getPlayer().getY());
+					// 아이템이 닿았을 때 좌표 계산
+					int absX = Math.abs(itemX - mContext.getPlayer().getX() - 55);
+					int absY = Math.abs(itemY - mContext.getPlayer().getY());
 					if (absX < 25 && absY < 50) {
 						if (state == 0) {
 							crash();
@@ -73,38 +76,13 @@ public class Item extends JLabel implements ItemMoveable {
 		}).start();
 
 	}
-
+	// 아이템이 닿았을 때
 	public void crash() {
-		// mContext.getItem().setState(1);
 		state = 1;
 		setIcon(null);
 		mContext.remove(this);
 		mContext.repaint();
 		mContext.scoreSet();
-	}
-
-	public int getState() {
-		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 
 	public ImageIcon getItem() {
@@ -113,6 +91,30 @@ public class Item extends JLabel implements ItemMoveable {
 
 	public void setItem(ImageIcon item) {
 		this.item = item;
+	}
+
+	public int getItemX() {
+		return itemX;
+	}
+
+	public void setItemX(int itemX) {
+		this.itemX = itemX;
+	}
+
+	public int getItemY() {
+		return itemY;
+	}
+
+	public void setItemY(int itemY) {
+		this.itemY = itemY;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
 	}
 
 	public boolean isLeft() {

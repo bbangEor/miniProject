@@ -9,13 +9,15 @@ public class Player extends JLabel {
 
 	Player mContext;
 
-	private int x;
-	private int y;
+	// 플레이어 이미지
 	private ImageIcon player;
+	// 플레이어 좌표
+	private int playerX;
+	private int playerY;
+	private ImageIcon shieldMotion;
 	// 움직임 상태
 	private boolean up;
 	private boolean down;
-
 	// 플레이어 속도 상태
 	private final int JUMPSPEED = 2;
 
@@ -27,64 +29,20 @@ public class Player extends JLabel {
 
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public ImageIcon getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(ImageIcon player) {
-		this.player = player;
-	}
-
-	public boolean isUp() {
-		return up;
-	}
-
-	public void setUp(boolean up) {
-		this.up = up;
-	}
-
-	public int getJUMPSPEED() {
-		return JUMPSPEED;
-	}
-
-	public boolean isDown() {
-		return down;
-	}
-
-	public void setDown(boolean down) {
-		this.down = down;
-	}
-
 	private void initData() {
 		player = new ImageIcon("img/Player.png");
-		
-		x = 100;
-		y = 260;
+		shieldMotion = new ImageIcon("img/shieldMotion.png");
+		playerX = 100;
+		playerY = 260;
 		up = false;
 		down = false;
 	}
 
 	private void setInitLayout() {
-
+		
 		setIcon(player);
-		setSize(100, 100);
-		setLocation(x, y);
+		setSize(130, 100);
+		setLocation(playerX, playerY);
 	}
 
 	public void up() {
@@ -94,16 +52,14 @@ public class Player extends JLabel {
 			@Override
 			public void run() {
 				for (int i = 0; i < 130 / JUMPSPEED; i++) {
-					y = y - JUMPSPEED;
-					setLocation(x, y);
+					playerY = playerY - JUMPSPEED;
+					setLocation(playerX, playerY);
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-
-				// 객체의 상태값을 잘 조절해야 한다.
 				up = false;
 				down();
 			}
@@ -119,8 +75,8 @@ public class Player extends JLabel {
 			@Override
 			public void run() {
 				while (down) {
-					y = y + JUMPSPEED;
-					setLocation(x, y);
+					playerY = playerY + JUMPSPEED;
+					setLocation(playerX, playerY);
 					try {
 						Thread.sleep(3);
 					} catch (InterruptedException e) {
@@ -128,8 +84,56 @@ public class Player extends JLabel {
 					}
 				}
 				down = false;
-				System.out.println("멈춤준비");
 			}
 		}).start();
 	}
+
+	public ImageIcon getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(ImageIcon player) {
+		this.player = player;
+	}
+
+	public int getPlayerX() {
+		return playerX;
+	}
+
+	public void setPlayerX(int playerX) {
+		this.playerX = playerX;
+	}
+
+	public int getPlayerY() {
+		return playerY;
+	}
+
+	public void setPlayerY(int playerY) {
+		this.playerY = playerY;
+	}
+
+	public boolean isUp() {
+		return up;
+	}
+
+	public void setUp(boolean up) {
+		this.up = up;
+	}
+
+	public boolean isDown() {
+		return down;
+	}
+
+	public void setDown(boolean down) {
+		this.down = down;
+	}
+
+	public int getJUMPSPEED() {
+		return JUMPSPEED;
+	}
+
+	public ImageIcon getShieldMotion() {
+		return shieldMotion;
+	}
+
 }

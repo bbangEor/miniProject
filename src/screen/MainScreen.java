@@ -13,16 +13,23 @@ import test.MiniGameFrame;
 
 public class MainScreen extends MiniGameFrame {
 
-	private JLabel mainmenuMap;
-	private JPanel jPanel1;
-	private JButton button1;
-	private JButton button2;
-	private JButton button3;
-	private JButton button4;
-	private ImageIcon img1;
-	private ImageIcon img2;
-	private ImageIcon img3;
-	private ImageIcon img4;
+	// 배경화면
+	private JLabel backgroundMap;
+	// 패널 생성
+	private JPanel jPanel;
+	// startGame 버튼
+	private JButton startGame1;
+	private JButton startGame2;
+	// quit 버튼
+	private JButton quit1;
+	private JButton quit2;
+	// startGame 이미지
+	private ImageIcon startGameImg1;
+	private ImageIcon startGameImg2;
+	// quit 이미지
+	private ImageIcon quitImg1;
+	private ImageIcon quitImg2;
+	// 게임 방법 설명
 	private JLabel comments;
 
 	public MainScreen() {
@@ -32,57 +39,62 @@ public class MainScreen extends MiniGameFrame {
 	}
 
 	public void initData() {
-		mainmenuMap = new JLabel(new ImageIcon("img/Background.jpg"));
-		setContentPane(mainmenuMap);// 배경화면 출력
+		// 배경화면 출력
+		backgroundMap = new JLabel(new ImageIcon("img/Background.jpg"));
+		setContentPane(backgroundMap);
 		setSize(815, 500);
-		jPanel1 = new JPanel();
-		img1 = new ImageIcon("img/startGame.png");
-		img2 = new ImageIcon("img/quit.png");
-		img3 = new ImageIcon("img/startGame2.png");
-		img4 = new ImageIcon("img/quit2.png");
-		button1 = new JButton(img1);
-		button2 = new JButton(img2);
-		button3 = new JButton(img3);
-		button4 = new JButton(img4);
-
-		comments = new JLabel("MINI GAME");
+		// 패널 생성
+		jPanel = new JPanel();
+		// startGame 출력
+		startGameImg1 = new ImageIcon("img/startGame.png");
+		startGameImg2 = new ImageIcon("img/startGame2.png");
+		startGame1 = new JButton(startGameImg1);
+		startGame2 = new JButton(startGameImg2);
+		// quit 출력
+		quitImg1 = new ImageIcon("img/quit.png");
+		quitImg2 = new ImageIcon("img/quit2.png");
+		quit1 = new JButton(quitImg1);
+		quit2 = new JButton(quitImg2);
+		// comments 출력
+		comments = new JLabel("Space = Jump");
 		comments.setFont(new Font("둥근모꼴", Font.PLAIN, 20));
-//		jPanel1.add(comments);
 
 	}
 
 	public void setInitLayout() {
 		setResizable(false);
 		setLayout(null);
-		button1.setBounds(210, 130, 350, 100);
-		button1.setBorderPainted(false);
-		button1.setContentAreaFilled(false);
-		button1.setFocusPainted(false);
-		button2.setBounds(210, 250, 350, 100);
-		button2.setBorderPainted(false);
-		button2.setContentAreaFilled(false);
-		button2.setFocusPainted(false);
-		comments.setBounds(20, 0, 150, 100);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-//		add(jPanel1);
+		// startGame 버튼 이미지 설정
+		startGame1.setBounds(210, 130, 350, 100);
+		startGame1.setBorderPainted(false);
+		startGame1.setContentAreaFilled(false);
+		startGame1.setFocusPainted(false);
+		add(startGame1);
+		add(startGame2);
+		// quit 버튼 이미지 설정
+		quit1.setBounds(210, 250, 350, 100);
+		quit1.setBorderPainted(false);
+		quit1.setContentAreaFilled(false);
+		quit1.setFocusPainted(false);
+		add(quit1);
+		add(quit2);
+		// comment 설정
+		comments.setBounds(20, 0, 150, 100);
 		add(comments);
-		add(button1);
-		add(button2);
-		add(button3);
-		add(button4);
 
 	}
 
+	// 이벤트 리스너
 	public void addEventListener() {
-
-		button1.addMouseListener(new MouseAdapter() {
+		startGame1.addMouseListener(new MouseAdapter() {
 			// 마우스 버튼을 누를때 발생
 			@Override
 			public void mousePressed(MouseEvent e) {
-				button1.setVisible(false);
-				System.out.println("길게누름");
+				// startGame 버튼을 누르면 게임 화면으로 전환
+				startGame1.setVisible(false);
 				new MiniGameFrame();
 				setVisible(false);
 			}
@@ -90,39 +102,35 @@ public class MainScreen extends MiniGameFrame {
 			// 마우스가 해당 컴포넌트 영역 밖으로 나갈때 발생
 			@Override
 			public void mouseExited(MouseEvent e) {
-				button1.setVisible(true);
-				button3.setVisible(false);
-
-				System.out.println("나옴");
+				startGame1.setVisible(true);
+				startGame2.setVisible(false);
 				repaint();
 			}
 
 			// 마우스가 해당 컴포넌트 영역 안으로 들어올때 발생
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				button1.setVisible(false);
-				button3.setVisible(true);
-				button3.setBounds(210, 130, 350, 100);
-				button3.setBorderPainted(false);
-				button3.setContentAreaFilled(false);
-				button3.setFocusPainted(false);
-				System.out.println("들어감");
+				startGame1.setVisible(false);
+				startGame2.setVisible(true);
+				startGame2.setBounds(210, 130, 350, 100);
+				startGame2.setBorderPainted(false);
+				startGame2.setContentAreaFilled(false);
+				startGame2.setFocusPainted(false);
 				repaint();
 			}
 
 			// 마우스가 해당 컴포넌트를 클릭했을때.
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				button1.setVisible(false);
-
+				startGame1.setVisible(false);
 				new MiniGameFrame();
 				setVisible(false);
 			}
 		});
 		// 마우스 버튼을 누를때 발생
-		button2.addMouseListener(new MouseAdapter() {
+		quit1.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				button2.setVisible(false);
+				quit1.setVisible(false);
 				System.out.println("길게누름");
 				System.exit(0);
 				setVisible(false);
@@ -131,12 +139,12 @@ public class MainScreen extends MiniGameFrame {
 			// 마우스가 해당 컴포넌트 영역 안으로 들어올때 발생
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				button2.setVisible(false);
-				button4.setVisible(true);
-				button4.setBounds(210, 250, 350, 100);
-				button4.setBorderPainted(false);
-				button4.setContentAreaFilled(false);
-				button4.setFocusPainted(false);
+				quit1.setVisible(false);
+				quit2.setVisible(true);
+				quit2.setBounds(210, 250, 350, 100);
+				quit2.setBorderPainted(false);
+				quit2.setContentAreaFilled(false);
+				quit2.setFocusPainted(false);
 				System.out.println("들어감");
 				repaint();
 			}
@@ -144,8 +152,8 @@ public class MainScreen extends MiniGameFrame {
 			// 마우스가 해당 컴포넌트 영역 밖으로 나갈때 발생
 			@Override
 			public void mouseExited(MouseEvent e) {
-				button2.setVisible(true);
-				button4.setVisible(false);
+				quit1.setVisible(true);
+				quit2.setVisible(false);
 				System.out.println("나옴");
 				repaint();
 			}

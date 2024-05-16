@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import interfaces.ItemMoveable;
-import screen.MainScreen;
 import screen.ResultScreen;
 import state.BombWay;
 import test.MiniGameFrame;
@@ -16,27 +15,21 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	MiniGameFrame mContext;
 
-	public int getState() {
-		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
-	}
-
-	private int x;
-	private int y;
-	private int i=0;
-	private int state = 0;
-
+	// 폭탄 이미지
 	private ImageIcon bomb;
+	// 폭탄 좌표
+	private int bombX;
+	private int bombY;
+	// 폭탄 상태
+	private int state = 0;
+	// 폭탄 속도
 	private final int SPEED = 3;
-
+	// 폭탄 방향
 	private boolean left;
 	private BombWay bombWay;
-	
-	// 추가 코드
-	public static List<Bomb> bombs =new ArrayList<>();
+
+	// 폭탄 리스트 생성
+	public static List<Bomb> bombs = new ArrayList<>();
 
 	public Bomb(MiniGameFrame mContext) {
 		this.mContext = mContext;
@@ -48,93 +41,96 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	public void initData() {
 		bomb = new ImageIcon("img/bomb.png");
-
-		x = 1000;
-		y = 310;
+		bombX = 1000;
+		bombY = 310;
 
 	}
 
 	public void setInitLayout() {
 		setIcon(bomb);
 		setSize(50, 50);
-		setLocation(x, y);
+		setLocation(bombX, bombY);
 	}
 
 	@Override
 	public void left() {
 		bombWay = BombWay.LEFT;
 		left = true;
-		
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				while (left) {
-					x -= SPEED;
-					setLocation(x, y);
-
-					// TODO NullPointerException 오류
-					// GameFrame에 Player = new 생성해야함
-					 if (mContext != null && mContext.getPlayer() != null) {
-						 
-					int absX = Math.abs(x - mContext.getPlayer().getX() -5);
-					int absY = Math.abs(y - mContext.getPlayer().getY());
-					if (absX < 25 && absY < 50) {
-						if (state == 0) {
-							crash();
-							left=false;
-							i++;
-							System.out.println("가동중"+i);
+					bombX -= SPEED;
+					setLocation(bombX, bombY);
+					// 폭탄이 닿았을 때 좌표 계산
+					if (mContext != null && mContext.getPlayer() != null) {
+						int absX = Math.abs(bombX - mContext.getPlayer().getX() - 5);
+						int absY = Math.abs(bombY - mContext.getPlayer().getY());
+						if (absX < 25 && absY < 50) {
+							if (state == 0) {
+								crash();
+								left = false;
 							}
 						}
-					 }
-
+					}
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-
-				left=false;
+				left = false;
 			}
 		}).start();
 
 	}
 
-	//추가중인 코드
+	// 폭탄이 닿았을 때
 	public void crash() {
-		for (int i=0;i<bombs.size();i++) {
+		for (int i = 0; i < bombs.size(); i++) {
 			Bomb bomb = bombs.get(i);
-			if(bomb.mContext!=null) {
-				System.out.println("폭탄닿음+"+i);
-		        bomb.setIcon(null);
-		        bomb.mContext.remove(bomb);
-		        mContext.setVisible(false);
-		        mContext.setFlag(false);
-		        
-		        bomb.left = false;
+			if (bomb.mContext != null) {
+				System.out.println("폭탄닿음+" + i);
+				bomb.setIcon(null);
+				bomb.mContext.remove(bomb);
+				mContext.setVisible(false);
+				mContext.setFlag(false);
+
+				bomb.left = false;
 			}
 		}
-	    bombs.clear(); // 리스트 비우기
-	    this.left=false;
-	    new ResultScreen();
+		bombs.clear(); // 리스트 비우기
+		this.left = false;
+		new ResultScreen(mContext);
 	}
 
-	public int getX() {
-		return x;
+	public void crash2() {
+		for (int i = 0; i < bombs.size(); i++) {
+			Bomb bomb = bombs.get(i);
+			if (bomb.mContext != null) {
+				System.out.println("폭탄닿음+" + i);
+				bomb.setIcon(null);
+				bomb.mContext.remove(bomb);
+				bomb.left = false;
+			}
+		}
+		bombs.clear(); // 리스트 비우기
 	}
 
-	public void setX(int x) {
-		this.x = x;
+	public int getBombX() {
+		return bombX;
 	}
 
-	public int getY() {
-		return y;
+	public void setBombX(int bombX) {
+		this.bombX = bombX;
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public int getBombY() {
+		return bombY;
+	}
+
+	public void setBombY(int bombY) {
+		this.bombY = bombY;
 	}
 
 	public ImageIcon getBomb() {
@@ -163,6 +159,14 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	public int getSPEED() {
 		return SPEED;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
 	}
 
 }
