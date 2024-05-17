@@ -76,29 +76,33 @@ public class Shield extends JLabel implements ItemMoveable {
 
 	public void crash() {
 		state = 1;
+		mContext.getPlayer().setCollide(false);
 		setIcon(null);
 		mContext.remove(this);
 		mContext.repaint();
+		player.setIcon(player.getShieldMotion());
+		player.setShielded(true);
+		System.out.println("쉴드 모션");
 
-		if (state == 1) {
-			player.setIcon(player.getShieldMotion());
-			player.setShielded(true);
-			System.out.println("쉴드 모션");
-
-			for (int i = 0; 1 < 30; i++) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				if (mContext.getPlayer().isShielded() == false) {
-					break;
-				}
-			}
-			System.out.println("쉴드 모션 해제");
-			player.setIcon(player.getPlayer());
-			player.setShielded(false);
-		}
+//		if (state == 1) {
+//			player.setIcon(player.getShieldMotion());
+//			player.setShielded(true);
+//			System.out.println("쉴드 모션");
+//
+//			for (int i = 0; 1 < 30; i++) {
+//				try {
+//					Thread.sleep(100);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//				if (mContext.getPlayer().isShielded() == false) {
+//					break;
+//				}
+//			}
+//			System.out.println("쉴드 모션 해제");
+//			player.setIcon(player.getPlayer());
+//			player.setShielded(false);
+//		}
 	}
 
 	public int getState() {

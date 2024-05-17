@@ -68,14 +68,14 @@ public class MainScreen extends MiniGameFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		// startGame 버튼 이미지 설정
-		startGame1.setBounds(210, 130, 350, 100);
+		startGame1.setBounds(210, 130, 330, 60);
 		startGame1.setBorderPainted(false);
 		startGame1.setContentAreaFilled(false);
 		startGame1.setFocusPainted(false);
 		add(startGame1);
 		add(startGame2);
 		// quit 버튼 이미지 설정
-		quit1.setBounds(210, 250, 350, 100);
+		quit1.setBounds(300, 250, 150, 50);
 		quit1.setBorderPainted(false);
 		quit1.setContentAreaFilled(false);
 		quit1.setFocusPainted(false);
@@ -112,7 +112,7 @@ public class MainScreen extends MiniGameFrame {
 			public void mouseEntered(MouseEvent e) {
 				startGame1.setVisible(false);
 				startGame2.setVisible(true);
-				startGame2.setBounds(210, 130, 350, 100);
+				startGame2.setBounds(210, 130, 330, 60);
 				startGame2.setBorderPainted(false);
 				startGame2.setContentAreaFilled(false);
 				startGame2.setFocusPainted(false);
@@ -141,7 +141,7 @@ public class MainScreen extends MiniGameFrame {
 			public void mouseEntered(MouseEvent e) {
 				quit1.setVisible(false);
 				quit2.setVisible(true);
-				quit2.setBounds(210, 250, 350, 100);
+				quit2.setBounds(300, 250, 150, 50);
 				quit2.setBorderPainted(false);
 				quit2.setContentAreaFilled(false);
 				quit2.setFocusPainted(false);
