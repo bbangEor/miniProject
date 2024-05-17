@@ -96,7 +96,7 @@ public class MiniGameFrame extends JFrame {
 								// d = 쉴드
 							} else if (a < 7) {
 								int d = (new Random()).nextInt(10);
-								if (d < 5) {
+								if (d < 1) {
 									add(new Shield(mContext));
 									repaint();
 								}
