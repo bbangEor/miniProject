@@ -2,27 +2,29 @@ package components;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
 
 import interfaces.ItemMoveable;
-import state.BombWay;
 import test.MiniGameFrame;
 
 public class Shield extends JLabel implements ItemMoveable {
 
 	MiniGameFrame mContext;
 
+	// 쉴드 상태
 	private int state = 0;
+	// 쉴드 좌표
 	private int x;
 	private int y;
+	// 쉴드 이미지
 	private ImageIcon shield;
+	// 플레이어 쉴드 이미지
 	private Player player;
 	private ImageIcon shieldMotion;
 	private ImageIcon shieldMotion2;
+	// 쉴드 속도
 	private final int SPEED = 3;
+	// 쉴드 방향
 	private boolean left;
-	private BombWay bombWay;
-
 	Bomb bomb;
 
 	public Shield(MiniGameFrame mContext2) {
@@ -50,7 +52,6 @@ public class Shield extends JLabel implements ItemMoveable {
 
 	@Override
 	public void left() {
-		bombWay = BombWay.LEFT;
 		left = true;
 		new Thread(new Runnable() {
 			@Override
@@ -63,6 +64,7 @@ public class Shield extends JLabel implements ItemMoveable {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					// 충돌 계산
 					int absX = Math.abs(x - mContext.getPlayer().getX() - 55);
 					int absY = Math.abs(y - mContext.getPlayer().getY());
 					if (absX < 25 && absY < 50) {
@@ -75,21 +77,25 @@ public class Shield extends JLabel implements ItemMoveable {
 		}).start();
 	}
 
+	// 쉴드 충돌시
 	public void crash() {
+		// 이미지 삭제 처리
 		state = 1;
 		setIcon(null);
 		mContext.remove(this);
 		mContext.repaint();
 
+		// 플레이어 쉴드 상태 true, 이미지 바꾸기
 		if (state == 1) {
 			player.setIcon(player.getShieldMotion());
 			player.setShielded(true);
 			System.out.println("쉴드 모션");
 
+			// 3초 대기
 			for (int i = 0; i < 30; i++) {
 				try {
 					Thread.sleep(100);
-					System.out.println(state);
+					System.out.println(i);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 
@@ -97,7 +103,7 @@ public class Shield extends JLabel implements ItemMoveable {
 				if (mContext.getPlayer().isShielded() == false) {
 					break;
 				}
-			}
+			} // 쉴드 상태 해제, 이미지 바꾸기
 			System.out.println("쉴드 모션 해제");
 			player.setIcon(player.getPlayer());
 			player.setShielded(false);
@@ -105,55 +111,4 @@ public class Shield extends JLabel implements ItemMoveable {
 
 	}
 
-	public int getState() {
-		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public ImageIcon getShield() {
-		return shield;
-	}
-
-	public void setShield(ImageIcon shield) {
-		this.shield = shield;
-	}
-
-	public boolean isLeft() {
-		return left;
-	}
-
-	public void setLeft(boolean left) {
-		this.left = left;
-	}
-
-	public BombWay getBombWay() {
-		return bombWay;
-	}
-
-	public void setBombWay(BombWay bombWay) {
-		this.bombWay = bombWay;
-	}
-
-	public int getSPEED() {
-		return SPEED;
-	}
 }
