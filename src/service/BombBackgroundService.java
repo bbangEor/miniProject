@@ -11,7 +11,7 @@ public class BombBackgroundService implements Runnable {
 
 	private BufferedImage image;
 	private components.Bomb bomb;
-	
+
 	// 생성자 의존 주입
 	public BombBackgroundService(components.Bomb bomb) {
 		this.bomb = bomb;

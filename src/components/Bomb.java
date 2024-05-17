@@ -70,8 +70,8 @@ public class Bomb extends JLabel implements ItemMoveable {
 							if (state == 0) {
 								if (mContext.getPlayer().isShielded() == true) {
 									System.out.println("test");
-									mContext.getPlayer().setShielded(false);
-									mContext.getPlayer().setIcon(mContext.getPlayer().getPlayer());
+//									mContext.getPlayer().setShielded(false);
+//									mContext.getPlayer().setIcon(mContext.getPlayer().getPlayer());
 									shieldCrash();
 								} else {
 									crash();
@@ -114,12 +114,24 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	public void shieldCrash() {
 		state = 1;
+		mContext.getPlayer().setCollide(true);
 		for (int i = 0; i < 1; i++) {
 			Bomb bomb = bombs.get(i);
 			if (bomb.mContext != null) {
 				mContext.remove(this);
 				mContext.repaint();
 			}
+		}
+		try {
+			System.out.println("collide");
+			Thread.sleep(3000);
+			if (mContext.getPlayer().isCollide()) {
+				mContext.getPlayer().setShielded(false);
+				mContext.getPlayer().setIcon(mContext.getPlayer().getPlayer());
+			}
+			mContext.getPlayer().setCollide(false);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -19,6 +19,8 @@ public class Player extends JLabel {
 	private boolean up;
 	private boolean down;
 	private boolean isShielded;
+	private boolean isCollide;
+
 	// 플레이어 속도 상태
 	private final int JUMPSPEED = 2;
 
@@ -145,4 +147,11 @@ public class Player extends JLabel {
 		this.isShielded = isShielded;
 	}
 
+	public boolean isCollide() {
+		return isCollide;
+	}
+
+	public void setCollide(boolean isCollide) {
+		this.isCollide = isCollide;
+	}
 }
