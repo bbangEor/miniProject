@@ -14,20 +14,18 @@ import test.MiniGameFrame;
 
 public class ResultScreen extends JFrame {
 
-	// ResultScreen mContext;
-
 	// ImageIcon gameOver;
 	private JLabel backgroundMap;
 	private JButton retry;
 	private JButton mainMenu;
 	private JButton gameOver;
 	private ImageIcon gameOverIcon;
-	
+
 	MiniGameFrame mContext;
 
 	// 점수 표시 확인 테스트 (삭제예정)
 	private int resultScore;
-	
+
 	// 생성자
 	// 생성자 의존 DI 주입
 	public ResultScreen(MiniGameFrame mContext) {
@@ -88,7 +86,7 @@ public class ResultScreen extends JFrame {
 		Font f = new Font("둥근모꼴", Font.PLAIN, 30);
 		g.setFont(f);
 		// 점수 : 폰트 출력
-		
+
 		String scoreDraw = "score : " + Integer.toString(mContext.getScores());
 		g.drawString(scoreDraw, 320, 270);
 	} // end of paint()
@@ -146,7 +144,4 @@ public class ResultScreen extends JFrame {
 
 	} // end of mouseEvent()
 
-//	public static void main(String[] args) {
-//		new ResultScreen();
-//	} // end of main
 }
