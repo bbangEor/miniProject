@@ -1,34 +1,42 @@
 package components;
 
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import interfaces.ItemMoveable;
+import screen.MiniGameFrame;
 import state.BombWay;
-import test.MiniGameFrame;
 
 public class Shield extends JLabel implements ItemMoveable {
 
 	MiniGameFrame mContext;
-
-	private int state = 0;
-	private int x;
-	private int y;
+	// 쉴드 이미지
 	private ImageIcon shield;
+	// 플레이어 쉴드 이미지
 	private Player player;
 	private ImageIcon shieldMotion;
 	private ImageIcon shieldMotion2;
+	// 쉴드 좌표
+	private int shieldX;
+	private int shieldY;
+	// 쉴드 상태
+	private int state = 0;
+	private final int DEFAULT = 0;
+	private final int CRASH = 1;
+	// 쉴드 속도
 	private final int SPEED = 3;
+	// 쉴드 방향
 	private boolean left;
-	private BombWay bombWay;
+	
+	private Bomb bomb;
 
-	Bomb bomb;
-
-	public Shield(MiniGameFrame mContext2) {
-		this.mContext = mContext2;
-		this.player = mContext2.getPlayer();
-		this.bomb = mContext2.getBomb();
+	public Shield(MiniGameFrame mContext) {
+		this.mContext = mContext;
+		this.player = mContext.getPlayer();
+		this.bomb = mContext.getBomb();
 		initData();
 		setInitLayout();
 		left();
@@ -38,35 +46,42 @@ public class Shield extends JLabel implements ItemMoveable {
 		shield = new ImageIcon("img/shield.png");
 		shieldMotion = new ImageIcon("img/shieldMotion.png");
 		shieldMotion2 = new ImageIcon("img/Player.png");
-		x = 1000;
-		y = 310;
+		// 랜덤 확률로 쉴드 생성
+		int random = new Random().nextInt(10);
+		if (random < 5) { // 50%
+			shieldX = 1000;
+			shieldY = 310;
+		} else { // 50%
+			shieldX = 1000;
+			shieldY = 210;
+		}
 	}
 
 	public void setInitLayout() {
 		setIcon(shield);
 		setSize(100, 50);
-		setLocation(x, y);
+		setLocation(shieldX, shieldY);
 	}
 
 	@Override
 	public void left() {
-		bombWay = BombWay.LEFT;
 		left = true;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (left) {
-					x -= SPEED;
-					setLocation(x, y);
+					shieldX -= SPEED;
+					setLocation(shieldX, shieldY);
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					int absX = Math.abs(x - mContext.getPlayer().getX() - 55);
-					int absY = Math.abs(y - mContext.getPlayer().getY());
+					// 플레이어와 충돌 좌표 계산
+					int absX = Math.abs(shieldX - mContext.getPlayer().getX() - 55);
+					int absY = Math.abs(shieldY - mContext.getPlayer().getY());
 					if (absX < 25 && absY < 50) {
-						if (state == 0) {
+						if (state == DEFAULT) {
 							crash();
 						}
 					}
@@ -76,20 +91,21 @@ public class Shield extends JLabel implements ItemMoveable {
 	}
 
 	public void crash() {
-		state = 1;
+		state = CRASH;
+		// 이미지 삭제 처리
 		setIcon(null);
 		mContext.remove(this);
 		mContext.repaint();
 
-		if (state == 1) {
+		if (state == CRASH) {
+			// 이미지 바꾸기
 			player.setIcon(player.getShieldMotion());
 			player.setShielded(true);
 			System.out.println("쉴드 모션");
-
+			// 3초 동안 유지
 			for (int i = 0; i < 30; i++) {
 				try {
 					Thread.sleep(100);
-					System.out.println(state);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 
@@ -98,6 +114,7 @@ public class Shield extends JLabel implements ItemMoveable {
 					break;
 				}
 			}
+			// 쉴드 상태 해제
 			System.out.println("쉴드 모션 해제");
 			player.setIcon(player.getPlayer());
 			player.setShielded(false);
@@ -105,55 +122,4 @@ public class Shield extends JLabel implements ItemMoveable {
 
 	}
 
-	public int getState() {
-		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public ImageIcon getShield() {
-		return shield;
-	}
-
-	public void setShield(ImageIcon shield) {
-		this.shield = shield;
-	}
-
-	public boolean isLeft() {
-		return left;
-	}
-
-	public void setLeft(boolean left) {
-		this.left = left;
-	}
-
-	public BombWay getBombWay() {
-		return bombWay;
-	}
-
-	public void setBombWay(BombWay bombWay) {
-		this.bombWay = bombWay;
-	}
-
-	public int getSPEED() {
-		return SPEED;
-	}
 }
