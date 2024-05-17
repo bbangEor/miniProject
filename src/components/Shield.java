@@ -68,7 +68,7 @@ public class Shield extends JLabel implements ItemMoveable {
 			@Override
 			public void run() {
 				while (left) {
-					shieldX -= SPEED;
+					shieldX -= (SPEED + (mContext.getScores() / 10));
 					setLocation(shieldX, shieldY);
 					try {
 						Thread.sleep(10);

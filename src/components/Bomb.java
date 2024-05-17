@@ -70,7 +70,7 @@ public class Bomb extends JLabel implements ItemMoveable {
 			@Override
 			public void run() {
 				while (left) {
-					bombX -= SPEED;
+					bombX -= (SPEED + (mContext.getScores() / 10));
 					setLocation(bombX, bombY);
 					// 폭탄이 닿았을 때 좌표 계산
 					if (mContext != null && mContext.getPlayer() != null) {

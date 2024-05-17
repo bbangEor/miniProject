@@ -65,7 +65,7 @@ public class Item extends JLabel implements ItemMoveable {
 			@Override
 			public void run() {
 				while (left) {
-					itemX -= SPEED;
+					itemX -= (SPEED + (mContext.getScores() / 10));
 					setLocation(itemX, itemY);
 					try {
 						Thread.sleep(10);
