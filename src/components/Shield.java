@@ -1,36 +1,40 @@
 package components;
 
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import interfaces.ItemMoveable;
-import test.MiniGameFrame;
+import screen.MiniGameFrame;
 
 public class Shield extends JLabel implements ItemMoveable {
 
 	MiniGameFrame mContext;
-
-	// 쉴드 상태
-	private int state = 0;
-	// 쉴드 좌표
-	private int x;
-	private int y;
 	// 쉴드 이미지
 	private ImageIcon shield;
 	// 플레이어 쉴드 이미지
 	private Player player;
 	private ImageIcon shieldMotion;
 	private ImageIcon shieldMotion2;
+	// 쉴드 좌표
+	private int shieldX;
+	private int shieldY;
+	// 쉴드 상태
+	private int state = 0;
+	private final int DEFAULT = 0;
+	private final int CRASH = 1;
 	// 쉴드 속도
 	private final int SPEED = 3;
 	// 쉴드 방향
 	private boolean left;
-	Bomb bomb;
 
-	public Shield(MiniGameFrame mContext2) {
-		this.mContext = mContext2;
-		this.player = mContext2.getPlayer();
-		this.bomb = mContext2.getBomb();
+	private Bomb bomb;
+
+	public Shield(MiniGameFrame mContext) {
+		this.mContext = mContext;
+		this.player = mContext.getPlayer();
+		this.bomb = mContext.getBomb();
 		initData();
 		setInitLayout();
 		left();
@@ -40,14 +44,21 @@ public class Shield extends JLabel implements ItemMoveable {
 		shield = new ImageIcon("img/shield.png");
 		shieldMotion = new ImageIcon("img/shieldMotion.png");
 		shieldMotion2 = new ImageIcon("img/Player.png");
-		x = 1000;
-		y = 310;
+		// 랜덤 확률로 쉴드 생성
+		int random = new Random().nextInt(10);
+		if (random < 5) { // 50%
+			shieldX = 1000;
+			shieldY = 310;
+		} else { // 50%
+			shieldX = 1000;
+			shieldY = 210;
+		}
 	}
 
 	public void setInitLayout() {
 		setIcon(shield);
 		setSize(100, 50);
-		setLocation(x, y);
+		setLocation(shieldX, shieldY);
 	}
 
 	@Override
@@ -57,18 +68,18 @@ public class Shield extends JLabel implements ItemMoveable {
 			@Override
 			public void run() {
 				while (left) {
-					x -= SPEED;
-					setLocation(x, y);
+					shieldX -= SPEED;
+					setLocation(shieldX, shieldY);
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					// 충돌 계산
-					int absX = Math.abs(x - mContext.getPlayer().getX() - 55);
-					int absY = Math.abs(y - mContext.getPlayer().getY());
+					// 플레이어와 충돌 좌표 계산
+					int absX = Math.abs(shieldX - mContext.getPlayer().getX() - 55);
+					int absY = Math.abs(shieldY - mContext.getPlayer().getY());
 					if (absX < 25 && absY < 50) {
-						if (state == 0) {
+						if (state == DEFAULT) {
 							crash();
 						}
 					}
@@ -77,25 +88,22 @@ public class Shield extends JLabel implements ItemMoveable {
 		}).start();
 	}
 
-	// 쉴드 충돌시
 	public void crash() {
+		state = CRASH;
 		// 이미지 삭제 처리
-		state = 1;
 		setIcon(null);
 		mContext.remove(this);
 		mContext.repaint();
 
-		// 플레이어 쉴드 상태 true, 이미지 바꾸기
-		if (state == 1) {
+		if (state == CRASH) {
+			// 이미지 바꾸기
 			player.setIcon(player.getShieldMotion());
 			player.setShielded(true);
 			System.out.println("쉴드 모션");
-
-			// 3초 대기
+			// 3초 동안 유지
 			for (int i = 0; i < 30; i++) {
 				try {
 					Thread.sleep(100);
-					System.out.println(i);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 
@@ -103,7 +111,8 @@ public class Shield extends JLabel implements ItemMoveable {
 				if (mContext.getPlayer().isShielded() == false) {
 					break;
 				}
-			} // 쉴드 상태 해제, 이미지 바꾸기
+			}
+			// 쉴드 상태 해제
 			System.out.println("쉴드 모션 해제");
 			player.setIcon(player.getPlayer());
 			player.setShielded(false);
