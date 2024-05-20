@@ -11,16 +11,15 @@ public class Player extends JLabel {
 
 	// 플레이어 이미지
 	private ImageIcon player;
+	private ImageIcon shieldMotion;
 	// 플레이어 좌표
 	private int playerX;
 	private int playerY;
-	private ImageIcon shieldMotion;
 	// 움직임 상태
 	private boolean up;
 	private boolean down;
+	// 방어
 	private boolean isShielded;
-	private boolean isCollide;
-
 	// 플레이어 속도 상태
 	private final int JUMPSPEED = 2;
 
@@ -54,11 +53,11 @@ public class Player extends JLabel {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i = 0; i < 130 / JUMPSPEED; i++) {
+				for (int i = 0; i < 120 / JUMPSPEED; i++) {
 					playerY = playerY - JUMPSPEED;
 					setLocation(playerX, playerY);
 					try {
-						Thread.sleep(5);
+						Thread.sleep(3);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -95,32 +94,8 @@ public class Player extends JLabel {
 		return player;
 	}
 
-	public void setPlayer(ImageIcon player) {
-		this.player = player;
-	}
-
-	public int getPlayerX() {
-		return playerX;
-	}
-
-	public void setPlayerX(int playerX) {
-		this.playerX = playerX;
-	}
-
-	public int getPlayerY() {
-		return playerY;
-	}
-
-	public void setPlayerY(int playerY) {
-		this.playerY = playerY;
-	}
-
 	public boolean isUp() {
 		return up;
-	}
-
-	public void setUp(boolean up) {
-		this.up = up;
 	}
 
 	public boolean isDown() {
@@ -129,10 +104,6 @@ public class Player extends JLabel {
 
 	public void setDown(boolean down) {
 		this.down = down;
-	}
-
-	public int getJUMPSPEED() {
-		return JUMPSPEED;
 	}
 
 	public ImageIcon getShieldMotion() {
@@ -147,11 +118,4 @@ public class Player extends JLabel {
 		this.isShielded = isShielded;
 	}
 
-	public boolean isCollide() {
-		return isCollide;
-	}
-
-	public void setCollide(boolean isCollide) {
-		this.isCollide = isCollide;
-	}
 }

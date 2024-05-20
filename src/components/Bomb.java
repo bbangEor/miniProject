@@ -8,9 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import interfaces.ItemMoveable;
+import screen.MiniGameFrame;
 import screen.ResultScreen;
 import state.BombWay;
-import test.MiniGameFrame;
 
 public class Bomb extends JLabel implements ItemMoveable {
 
@@ -134,4 +134,8 @@ public class Bomb extends JLabel implements ItemMoveable {
 		}
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 31a6dd5e9a5f6c9700ab35a120b380ab2d6d6a53

@@ -6,7 +6,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import interfaces.ItemMoveable;
+<<<<<<< HEAD
 import test.MiniGameFrame;
+=======
+import screen.MiniGameFrame;
+>>>>>>> 31a6dd5e9a5f6c9700ab35a120b380ab2d6d6a53
 
 public class Shield extends JLabel implements ItemMoveable {
 

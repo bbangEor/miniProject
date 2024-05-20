@@ -6,8 +6,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import interfaces.ItemMoveable;
+import screen.MiniGameFrame;
 import state.BombWay;
-import test.MiniGameFrame;
 
 public class Item extends JLabel implements ItemMoveable {
 
