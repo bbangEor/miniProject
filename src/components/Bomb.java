@@ -70,6 +70,8 @@ public class Bomb extends JLabel implements ItemMoveable {
 			@Override
 			public void run() {
 				while (left) {
+					// 폭탄 이동 속도(점수에 비례해 빨라지게)
+					// 스코어 호출 후 스피드에 더해 계산
 					bombX -= (SPEED + (mContext.getScores() / 10));
 					setLocation(bombX, bombY);
 					// 폭탄이 닿았을 때 좌표 계산

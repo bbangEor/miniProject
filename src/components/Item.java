@@ -65,6 +65,8 @@ public class Item extends JLabel implements ItemMoveable {
 			@Override
 			public void run() {
 				while (left) {
+					// 아이템 이동 속도(점수에 비례해 빨라지게)
+					// 스코어 호출 후 스피드에 더해 계산
 					itemX -= (SPEED + (mContext.getScores() / 10));
 					setLocation(itemX, itemY);
 					try {
