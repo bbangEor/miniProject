@@ -88,7 +88,7 @@ public class ResultScreen extends JFrame {
 		// 점수 : 폰트 출력
 
 		String scoreDraw = "score : " + Integer.toString(mContext.getScores());
-		g.drawString(scoreDraw, 320, 270);
+		g.drawString(scoreDraw, 325, 270);
 	} // end of paint()
 
 	// 마우스 이벤트 리스너

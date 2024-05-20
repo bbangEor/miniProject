@@ -2,6 +2,7 @@ package components;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -21,7 +22,9 @@ public class Bomb extends JLabel implements ItemMoveable {
 	private int bombX;
 	private int bombY;
 	// 폭탄 상태
-	private int state = 0;
+	private int state;
+	private final int DEFAULT = 0;
+	private final int CRASH = 1;
 	// 폭탄 속도
 	private final int SPEED = 3;
 	// 폭탄 방향
@@ -41,8 +44,15 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	public void initData() {
 		bomb = new ImageIcon("img/bomb.png");
-		bombX = 1000;
-		bombY = 310;
+		// 랜덤 확률로 폭탄 생성
+		int random = new Random().nextInt(10);
+		if (random < 5) { // 50%
+			bombX = 1000;
+			bombY = 310;
+		} else { // 50%
+			bombX = 1000;
+			bombY = 210;
+		}
 
 	}
 
@@ -60,16 +70,19 @@ public class Bomb extends JLabel implements ItemMoveable {
 			@Override
 			public void run() {
 				while (left) {
-					bombX -= SPEED;
+					// 폭탄 이동 속도(점수에 비례해 빨라지게)
+					// 스코어 호출 후 스피드에 더해 계산
+					bombX -= (SPEED + (mContext.getScores() / 10));
 					setLocation(bombX, bombY);
 					// 폭탄이 닿았을 때 좌표 계산
 					if (mContext != null && mContext.getPlayer() != null) {
 						int absX = Math.abs(bombX - mContext.getPlayer().getX() - 55);
 						int absY = Math.abs(bombY - mContext.getPlayer().getY());
-						if (absX < 25 && absY < 50) {
-							if (state == 0) {
+						if (absX < 25 && absY < 45) {
+							if (state == DEFAULT) {
+								// 플레이어가 쉴드가 있을 때
 								if (mContext.getPlayer().isShielded() == true) {
-									System.out.println("test");
+									System.out.println("shield");
 									shieldCrash();
 								} else {
 									crash();
@@ -92,7 +105,7 @@ public class Bomb extends JLabel implements ItemMoveable {
 
 	// 폭탄이 닿았을 때
 	public void crash() {
-		state = 1;
+		state = CRASH;
 		for (int i = 0; i < bombs.size(); i++) {
 			Bomb bomb = bombs.get(i);
 			if (bomb.mContext != null) {
@@ -101,7 +114,6 @@ public class Bomb extends JLabel implements ItemMoveable {
 				bomb.mContext.remove(bomb);
 				mContext.setVisible(false);
 				mContext.setFlag(false);
-
 				bomb.left = false;
 			}
 		}
@@ -110,8 +122,9 @@ public class Bomb extends JLabel implements ItemMoveable {
 		new ResultScreen(mContext);
 	}
 
+	// 실드
 	public void shieldCrash() {
-		state = 1;
+		state = CRASH;
 		for (int i = 0; i < 1; i++) {
 			Bomb bomb = bombs.get(i);
 			if (bomb.mContext != null) {
@@ -121,55 +134,4 @@ public class Bomb extends JLabel implements ItemMoveable {
 		}
 	}
 
-	public int getBombX() {
-		return bombX;
-	}
-
-	public void setBombX(int bombX) {
-		this.bombX = bombX;
-	}
-
-	public int getBombY() {
-		return bombY;
-	}
-
-	public void setBombY(int bombY) {
-		this.bombY = bombY;
-	}
-
-	public ImageIcon getBomb() {
-		return bomb;
-	}
-
-	public void setBomb(ImageIcon bomb) {
-		this.bomb = bomb;
-	}
-
-	public boolean isLeft() {
-		return left;
-	}
-
-	public void setLeft(boolean left) {
-		this.left = left;
-	}
-
-	public BombWay getBombWay() {
-		return bombWay;
-	}
-
-	public void setBombWay(BombWay bombWay) {
-		this.bombWay = bombWay;
-	}
-
-	public int getSPEED() {
-		return SPEED;
-	}
-
-	public int getState() {
-		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
-	}
 }

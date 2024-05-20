@@ -19,17 +19,19 @@ public class Item extends JLabel implements ItemMoveable {
 	private int itemX;
 	private int itemY;
 	// 아이템 상태
-	private int state = 0;
-
-	private Shield shield;
+	private int state;
+	private final int DEFAULT = 0;
+	private final int CRASH = 1;
 	// 아이템 속도
 	private final int SPEED = 3;
 	// 아이템 방향
 	private boolean left;
 	private BombWay bombWay;
 
-	public Item(MiniGameFrame mContext2) {
-		this.mContext = mContext2;
+	private Shield shield;
+
+	public Item(MiniGameFrame mContext) {
+		this.mContext = mContext;
 		initData();
 		setInitLayout();
 		left();
@@ -37,8 +39,16 @@ public class Item extends JLabel implements ItemMoveable {
 
 	public void initData() {
 		item = new ImageIcon("img/dotori.png");
-		itemX = 1000;
-		itemY = 310;
+		// 랜덤 확률로 아이템 생성
+		int random = new Random().nextInt(10);
+		if (random < 6) { // 60%
+			itemX = 1000;
+			itemY = 310;
+		} else { // 40%
+			itemX = 1000;
+			itemY = 210;
+		}
+
 	}
 
 	public void setInitLayout() {
@@ -55,7 +65,9 @@ public class Item extends JLabel implements ItemMoveable {
 			@Override
 			public void run() {
 				while (left) {
-					itemX -= SPEED;
+					// 아이템 이동 속도(점수에 비례해 빨라지게)
+					// 스코어 호출 후 스피드에 더해 계산
+					itemX -= (SPEED + (mContext.getScores() / 10));
 					setLocation(itemX, itemY);
 					try {
 						Thread.sleep(10);
@@ -66,7 +78,7 @@ public class Item extends JLabel implements ItemMoveable {
 					int absX = Math.abs(itemX - mContext.getPlayer().getX() - 55);
 					int absY = Math.abs(itemY - mContext.getPlayer().getY());
 					if (absX < 25 && absY < 50) {
-						if (state == 0) {
+						if (state == DEFAULT) {
 							crash();
 						}
 					}
@@ -76,65 +88,16 @@ public class Item extends JLabel implements ItemMoveable {
 		}).start();
 
 	}
+
 	// 아이템이 닿았을 때
 	public void crash() {
-		state = 1;
+		// 아이템 삭제 처리
+		state = CRASH;
 		setIcon(null);
 		mContext.remove(this);
 		mContext.repaint();
+		// 스코어 점수 올리기
 		mContext.scoreSet();
-	}
-
-	public ImageIcon getItem() {
-		return item;
-	}
-
-	public void setItem(ImageIcon item) {
-		this.item = item;
-	}
-
-	public int getItemX() {
-		return itemX;
-	}
-
-	public void setItemX(int itemX) {
-		this.itemX = itemX;
-	}
-
-	public int getItemY() {
-		return itemY;
-	}
-
-	public void setItemY(int itemY) {
-		this.itemY = itemY;
-	}
-
-	public int getState() {
-		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
-	}
-
-	public boolean isLeft() {
-		return left;
-	}
-
-	public void setLeft(boolean left) {
-		this.left = left;
-	}
-
-	public BombWay getBombWay() {
-		return bombWay;
-	}
-
-	public void setBombWay(BombWay bombWay) {
-		this.bombWay = bombWay;
-	}
-
-	public int getSPEED() {
-		return SPEED;
 	}
 
 }
