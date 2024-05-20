@@ -134,8 +134,5 @@ public class Bomb extends JLabel implements ItemMoveable {
 		}
 	}
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 31a6dd5e9a5f6c9700ab35a120b380ab2d6d6a53
+

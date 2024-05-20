@@ -1,6 +1,5 @@
 package screen;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -59,11 +58,7 @@ public class MainScreen extends MiniGameFrame {
 		quit2 = new JButton(quitImg2);
 		// comments 출력
 		comments = new JLabel("Space = Jump");
-<<<<<<< HEAD
-		comments.setFont(new Font("둥근모꼴", Font.PLAIN,23));
-=======
-		comments.setFont(new Font("둥근모꼴", Font.PLAIN, 21));
->>>>>>> 31a6dd5e9a5f6c9700ab35a120b380ab2d6d6a53
+		comments.setFont(new Font("둥근모꼴", Font.PLAIN, 23));
 
 	}
 
@@ -74,31 +69,17 @@ public class MainScreen extends MiniGameFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null); // 화면 가운데 배치
 		// startGame 버튼 이미지 설정
-<<<<<<< HEAD
-		startGame1.setBounds(235, 150, 330, 60);
-		startGame1.setBorderPainted(false);
-		startGame1.setContentAreaFilled(false);
-		startGame1.setFocusPainted(false);
-		add(startGame1);
-		add(startGame2);
-		// quit 버튼 이미지 설정
-		quit1.setBounds(325, 250, 150, 50);
-		quit1.setBorderPainted(false);
-		quit1.setContentAreaFilled(false);
-		quit1.setFocusPainted(false);
-=======
-		startGame1.setBounds(210, 130, 330, 60);
+		startGame1.setBounds(235, 130, 330, 60);
 		startGame1.setBorderPainted(false); // 외각 투명하게
 		startGame1.setContentAreaFilled(false); // 내용영역 채우기 없애기
 		startGame1.setFocusPainted(false); // 선택 되었을 때 얇은 점선 테두리 없애기
 		add(startGame1);
 		add(startGame2);
 		// quit 버튼 이미지 설정
-		quit1.setBounds(300, 250, 150, 50);
+		quit1.setBounds(325, 250, 150, 50);
 		quit1.setBorderPainted(false); // 외각 투명하게
 		quit1.setContentAreaFilled(false); // 내용영역 채우기 없애기
 		quit1.setFocusPainted(false); // 선택 되었을 때 얇은 점선 테두리 없애기
->>>>>>> 31a6dd5e9a5f6c9700ab35a120b380ab2d6d6a53
 		add(quit1);
 		add(quit2);
 		// comment 설정
@@ -132,17 +113,10 @@ public class MainScreen extends MiniGameFrame {
 			public void mouseEntered(MouseEvent e) {
 				startGame1.setVisible(false);
 				startGame2.setVisible(true);
-<<<<<<< HEAD
-				startGame2.setBounds(235, 150, 330, 60);
-				startGame2.setBorderPainted(false);
-				startGame2.setContentAreaFilled(false);
-				startGame2.setFocusPainted(false);
-=======
-				startGame2.setBounds(210, 130, 330, 60);
+				startGame2.setBounds(235, 130, 330, 60);
 				startGame2.setBorderPainted(false); // 외각 투명하게
 				startGame2.setContentAreaFilled(false); // 내용영역 채우기 없애기
 				startGame2.setFocusPainted(false); // 선택 되었을 때 얇은 점선 테두리 없애기
->>>>>>> 31a6dd5e9a5f6c9700ab35a120b380ab2d6d6a53
 				repaint();
 			}
 
@@ -168,17 +142,10 @@ public class MainScreen extends MiniGameFrame {
 			public void mouseEntered(MouseEvent e) {
 				quit1.setVisible(false);
 				quit2.setVisible(true);
-<<<<<<< HEAD
 				quit2.setBounds(325, 250, 150, 50);
-				quit2.setBorderPainted(false);
-				quit2.setContentAreaFilled(false);
-				quit2.setFocusPainted(false);
-=======
-				quit2.setBounds(300, 250, 150, 50);
 				quit2.setBorderPainted(false); // 외각 투명하게
 				quit2.setContentAreaFilled(false); // 내용영역 채우기 없애기
 				quit2.setFocusPainted(false); // 선택 되었을 때 얇은 점선 테두리 없애기
->>>>>>> 31a6dd5e9a5f6c9700ab35a120b380ab2d6d6a53
 				System.out.println("들어감");
 				repaint();
 			}
