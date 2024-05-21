@@ -15,8 +15,7 @@ public class Shield extends JLabel implements ItemMoveable {
 	private ImageIcon shield;
 	// 플레이어 쉴드 이미지
 	private Player player;
-	private ImageIcon shieldMotion;
-	private ImageIcon shieldMotion2;
+	
 	// 쉴드 좌표
 	private int shieldX;
 	private int shieldY;
@@ -42,8 +41,7 @@ public class Shield extends JLabel implements ItemMoveable {
 
 	public void initData() {
 		shield = new ImageIcon("img/shield.png");
-		shieldMotion = new ImageIcon("img/shieldMotion.png");
-		shieldMotion2 = new ImageIcon("img/Player.png");
+	
 		// 랜덤 확률로 쉴드 생성
 		int random = new Random().nextInt(10);
 		if (random < 5) { // 50%
@@ -110,9 +108,7 @@ public class Shield extends JLabel implements ItemMoveable {
 					e.printStackTrace();
 
 				}
-				if (mContext.getPlayer().isShielded() == false) {
-					break;
-				}
+			
 			}
 			// 쉴드 상태 해제
 			System.out.println("쉴드 모션 해제");
