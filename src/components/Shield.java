@@ -110,9 +110,7 @@ public class Shield extends JLabel implements ItemMoveable {
 					e.printStackTrace();
 
 				}
-				if (mContext.getPlayer().isShielded() == false) {
-					break;
-				}
+
 			}
 			// 쉴드 상태 해제
 			System.out.println("쉴드 모션 해제");
