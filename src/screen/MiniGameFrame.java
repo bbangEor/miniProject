@@ -1,4 +1,4 @@
-package test;
+package screen;
 
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
@@ -20,6 +20,8 @@ public class MiniGameFrame extends JFrame {
 
 	// 배경 화면
 	private JLabel backgroundMap;
+	private final int BACK_WIDTH = 815;
+	private final int BACK_HEIGHT = 500;
 	// 폭탄
 	private Bomb bomb;
 	// 아이템
@@ -46,7 +48,7 @@ public class MiniGameFrame extends JFrame {
 		backgroundMap = new JLabel(new ImageIcon("img/Background.jpg"));
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(815, 500);
+		setSize(BACK_WIDTH, BACK_HEIGHT);
 		// 플레이어 생성
 		player = new Player(player);
 	}
@@ -84,13 +86,13 @@ public class MiniGameFrame extends JFrame {
 					if (a < 7) {
 						// b = 도토리
 						int b = (new Random()).nextInt(10);
-						if (b < 5) {
+						if (b < 6) {
 							add(new Item(mContext));
 							repaint();
 						} else if (a < 7) {
 							// c = 폭탄
 							int c = (new Random()).nextInt(10);
-							if (c < 5) {
+							if (c < 4) {
 								add(new Bomb(mContext));
 								repaint();
 								// d = 쉴드
@@ -138,61 +140,20 @@ public class MiniGameFrame extends JFrame {
 		});
 	}
 
-	public JLabel getBackgroundMap() {
-		return backgroundMap;
-	}
-
-	public void setBackgroundMap(JLabel backgroundMap) {
-		this.backgroundMap = backgroundMap;
-	}
-
 	public Bomb getBomb() {
 		return bomb;
-	}
-
-	public void setBomb(Bomb bomb) {
-		this.bomb = bomb;
-	}
-
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
 	}
 
 	public Player getPlayer() {
 		return player;
 	}
 
-	public boolean isFlag() {
-		return flag;
-	}
-
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
 
-	public JLabel getScore() {
-		return score;
-	}
-
-	public void setScore(JLabel score) {
-		this.score = score;
-	}
-
 	public int getScores() {
 		return scores;
-	}
-
-	public void setScores(int scores) {
-		this.scores = scores;
-	}
-
-	public void remove(ImageIcon bomb2) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import interfaces.ItemMoveable;
-import test.MiniGameFrame;
+import screen.MiniGameFrame;
 
 public class Shield extends JLabel implements ItemMoveable {
 
@@ -108,7 +108,11 @@ public class Shield extends JLabel implements ItemMoveable {
 					e.printStackTrace();
 
 				}
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> dev2
 			}
 			// 쉴드 상태 해제
 			System.out.println("쉴드 모션 해제");

@@ -10,23 +10,25 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import test.MiniGameFrame;
-
 public class ResultScreen extends JFrame {
 
-	// ImageIcon gameOver;
+	// 배경 이미지
 	private JLabel backgroundMap;
+	private final int BACK_WIDTH = 815;
+	private final int BACK_HEIGHT = 500;
+	// 재시작
 	private JButton retry;
+	// 메인메뉴
 	private JButton mainMenu;
+	// 게임 오버
 	private JButton gameOver;
 	private ImageIcon gameOverIcon;
 
 	MiniGameFrame mContext;
 
-	// 점수 표시 확인 테스트 (삭제예정)
+	// 점수 표시 확인
 	private int resultScore;
 
-	// 생성자
 	// 생성자 의존 DI 주입
 	public ResultScreen(MiniGameFrame mContext) {
 		this.mContext = mContext;
@@ -40,30 +42,29 @@ public class ResultScreen extends JFrame {
 		backgroundMap = new JLabel(new ImageIcon("img/Background.jpg"));
 		setContentPane(backgroundMap);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setContentPane(backgroundMap);
-		setSize(815, 500);
+		setSize(BACK_WIDTH, BACK_HEIGHT);
 
-		gameOverIcon = new ImageIcon("img/gameOver.png"); // 게임 종료 이미지
 		// retry
 		retry = new JButton("RETRY");
 		retry.setFont(new Font("둥근모꼴", Font.PLAIN, 25));
-		retry.setBorderPainted(false); // 버튼 투명
-		retry.setContentAreaFilled(false); // 버튼 투명
-		retry.setFocusPainted(false); // 버튼 투명
+		retry.setBorderPainted(false); // 외각 투명하게
+		retry.setContentAreaFilled(false); // 내용 영역 채우기 없애기
+		retry.setFocusPainted(false); // 선택 되었을 때 얇은 점선 테두리 없애기
 		retry.setBounds(230, 250, 150, 50);
 		// mainMenu
 		mainMenu = new JButton("MAIN MENU");
 		mainMenu.setFont(new Font("둥근모꼴", Font.PLAIN, 25));
-		mainMenu.setBorderPainted(false); // 버튼 투명
-		mainMenu.setContentAreaFilled(false); // 버튼 투명
-		mainMenu.setFocusPainted(false); // 버튼 투명
+		mainMenu.setBorderPainted(false); // 외각 투명하게
+		mainMenu.setContentAreaFilled(false); // 내용 영역 채우기 없애기
+		mainMenu.setFocusPainted(false); // 선택 되었을 때 얇은 점선 테두리 없애기
 		mainMenu.setBounds(360, 250, 210, 50);
 		// gameOver
+		gameOverIcon = new ImageIcon("img/gameOver.png"); // 게임 종료 이미지
 		gameOver = new JButton(gameOverIcon);
-		gameOver.setContentAreaFilled(false); // 버튼 투명
-		gameOver.setBorderPainted(false); // 버튼 투명
-		gameOver.setFocusPainted(false); // 버튼 투명
-		gameOver.setBounds(230, 100, 350, 120);
+		gameOver.setBorderPainted(false); // 외각 투명하게
+		gameOver.setContentAreaFilled(false); // 내용 영역 채우기 없애기
+		gameOver.setFocusPainted(false); // 선택 되었을 때 얇은 점선 테두리 없애기
+		gameOver.setBounds(230, 85, 350, 120);
 
 	} // end of initData()
 
@@ -86,7 +87,6 @@ public class ResultScreen extends JFrame {
 		Font f = new Font("둥근모꼴", Font.PLAIN, 30);
 		g.setFont(f);
 		// 점수 : 폰트 출력
-
 		String scoreDraw = "score : " + Integer.toString(mContext.getScores());
 		g.drawString(scoreDraw, 325, 270);
 	} // end of paint()
@@ -102,45 +102,17 @@ public class ResultScreen extends JFrame {
 				dispose();
 				new MiniGameFrame();
 			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-		}); // end of button2
+		});
 
 		mainMenu.addMouseListener(new MouseAdapter() {
-
 			// 메인으로 돌아가기
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new MainScreen();
 				dispose();
-				// setVisible(false);
 			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-		}); // end of button3
+		});
 
 	} // end of mouseEvent()
 
